@@ -10,7 +10,8 @@ class MapView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HomeController>(
       builder: (_, controller, gpsMessageWidgwet) {
-        if (!controller.gpsEnabled) {
+        final state = controller.state;
+        if (!state.gpsEnable) {
           return gpsMessageWidgwet!;
         }
 
@@ -23,18 +24,12 @@ class MapView extends StatelessWidget {
         );
 
         return GoogleMap(
-          markers: controller.markers,
-          polylines: controller.polylines,
-          polygons: controller.polygons,
+          markers: state.markers.values.toSet(),
+          polylines: state.polylines.values.toSet(),
           onMapCreated: controller.onMapCreated,
           initialCameraPosition: initialCameraPosition,
-          myLocationButtonEnabled: true,
           myLocationEnabled: true,
-          scrollGesturesEnabled: true,
-          zoomControlsEnabled: true,
-          mapType: MapType.normal,
           compassEnabled: false,
-          onTap: controller.onTap,
         );
       },
       child: Center(

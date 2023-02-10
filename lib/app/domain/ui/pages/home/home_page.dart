@@ -18,58 +18,23 @@ class HomePage extends StatelessWidget {
     return ChangeNotifierProvider<HomeController>(
       create: (_) {
         final controller = HomeController();
-        controller.onMarkerTap.listen((String id) {
-          print("go to $id");
-        });
         return controller;
       },
       child: Scaffold(
-          extendBodyBehindAppBar: false,
-          appBar: AppBar(
-            actions: [
-              Builder(
-                builder: (context) {
-                  return IconButton(
-                    onPressed: () {
-                      final controller = context.read<HomeController>();
-                      controller.newPolyline();
-                    },
-                    icon: const Icon(Icons.add),
-                  );
-                },
-              ),
-              Builder(
-                builder: (context) {
-                  return IconButton(
-                    onPressed: () {
-                      final controller = context.read<HomeController>();
-                      controller.newPolygone();
-                    },
-                    icon: const Icon(Icons.map),
-                  );
-                },
-              )
-            ],
-            centerTitle: true,
-            backgroundColor: Colors.black,
-            elevation: 0,
-            title: Text(
-              'Uber Maps',
-              style: TextStyle(color: Colors.white),
-            ),
+        extendBodyBehindAppBar: false,
+        body: Selector<HomeController, bool>(
+          selector: (_, controller) => controller.state.loading,
+          builder: (context, loading, loadingWidget) {
+            if (loading) {
+              return loadingWidget!;
+            }
+            return const MapView();
+          },
+          child: const Center(
+            child: CircularProgressIndicator(),
           ),
-          body: Selector<HomeController, bool>(
-            builder: (context, loading, loadingWidget) {
-              if (loading) {
-                return loadingWidget!;
-              }
-              return const MapView();
-            },
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
-            selector: (_, controller) => controller.loading,
-          )),
+        ),
+      ),
     );
   }
 }
