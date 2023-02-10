@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\Cursos\\Flutter\\Flutter Maps\\google_maps\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-pt-rPT\\values-pt-rPT.xml",
+            "outputFile": "E:\\Cursos\\Flutter\\Flutter Maps\\rebu_maps\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-pt-rPT\\values-pt-rPT.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Brayan Edil Cruz\\.gradle\\caches\\transforms-3\\3ff720be07735976176520d1c05fb799\\transformed\\jetified-play-services-base-18.0.1\\res\\values-pt-rPT\\values.xml",

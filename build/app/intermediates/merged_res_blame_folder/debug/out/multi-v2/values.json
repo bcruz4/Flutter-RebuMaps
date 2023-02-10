@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\Cursos\\Flutter\\Flutter Maps\\google_maps\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "E:\\Cursos\\Flutter\\Flutter Maps\\rebu_maps\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Brayan Edil Cruz\\.gradle\\caches\\transforms-3\\49bc944d29f70d45aa5add8e43e3247e\\transformed\\jetified-window-1.0.0-beta04\\res\\values\\values.xml",
@@ -40,14 +40,14 @@
                     }
                 },
                 {
-                    "source": "E:\\Cursos\\Flutter\\Flutter Maps\\google_maps\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "source": "E:\\Cursos\\Flutter\\Flutter Maps\\rebu_maps\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
-                        "startOffsets": "176,832",
+                        "startOffsets": "173,818",
                         "endLines": "7,16",
                         "endColumns": "12,12",
-                        "endOffsets": "483,998"
+                        "endOffsets": "476,982"
                     },
                     "to": {
                         "startLines": "120,125",

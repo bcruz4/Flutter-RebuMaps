@@ -13,15 +13,15 @@
 13         to allow setting breakpoints, to provide hot reload, etc.
 14    -->
 15    <uses-permission android:name="android.permission.INTERNET" />
-15-->E:\Cursos\Flutter\Flutter Maps\google_maps\android\app\src\main\AndroidManifest.xml:3:5-66
-15-->E:\Cursos\Flutter\Flutter Maps\google_maps\android\app\src\main\AndroidManifest.xml:3:22-64
+15-->E:\Cursos\Flutter\Flutter Maps\rebu_maps\android\app\src\main\AndroidManifest.xml:3:5-66
+15-->E:\Cursos\Flutter\Flutter Maps\rebu_maps\android\app\src\main\AndroidManifest.xml:3:22-64
 16    <!-- Always include this permission -->
 17    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Include only if your app benefits from precise location access. -->
-17-->E:\Cursos\Flutter\Flutter Maps\google_maps\android\app\src\main\AndroidManifest.xml:5:5-81
-17-->E:\Cursos\Flutter\Flutter Maps\google_maps\android\app\src\main\AndroidManifest.xml:5:22-78
+17-->E:\Cursos\Flutter\Flutter Maps\rebu_maps\android\app\src\main\AndroidManifest.xml:5:5-81
+17-->E:\Cursos\Flutter\Flutter Maps\rebu_maps\android\app\src\main\AndroidManifest.xml:5:22-78
 18    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Include required permissions for Google Maps API to run. -->
-18-->E:\Cursos\Flutter\Flutter Maps\google_maps\android\app\src\main\AndroidManifest.xml:7:5-79
-18-->E:\Cursos\Flutter\Flutter Maps\google_maps\android\app\src\main\AndroidManifest.xml:7:22-76
+18-->E:\Cursos\Flutter\Flutter Maps\rebu_maps\android\app\src\main\AndroidManifest.xml:7:5-79
+18-->E:\Cursos\Flutter\Flutter Maps\rebu_maps\android\app\src\main\AndroidManifest.xml:7:22-76
 19    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 19-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\Brayan Edil Cruz\.gradle\caches\transforms-3\e201e9ad108cf5dd9bf454f2a581d29d\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:23:5-79
 19-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\Brayan Edil Cruz\.gradle\caches\transforms-3\e201e9ad108cf5dd9bf454f2a581d29d\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:23:22-76
