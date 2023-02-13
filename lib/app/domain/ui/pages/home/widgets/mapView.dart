@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps/app/domain/ui/pages/home/widgets/where_are_you_going_button.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import '../home_controller.dart';
+import '../controller/home_controller.dart';
 
 class MapView extends StatelessWidget {
   const MapView({super.key});
@@ -17,19 +19,28 @@ class MapView extends StatelessWidget {
 
         final initialCameraPosition = CameraPosition(
           target: LatLng(
-            controller.initialPosition!.longitude,
-            controller.initialPosition!.longitude,
+            state.initialPosition!.longitude,
+            state.initialPosition!.longitude,
           ),
           zoom: 15,
         );
 
-        return GoogleMap(
-          markers: state.markers.values.toSet(),
-          polylines: state.polylines.values.toSet(),
-          onMapCreated: controller.onMapCreated,
-          initialCameraPosition: initialCameraPosition,
-          myLocationEnabled: true,
-          compassEnabled: false,
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            GoogleMap(
+              markers: state.markers.values.toSet(),
+              polylines: state.polylines.values.toSet(),
+              onMapCreated: controller.onMapCreated,
+              initialCameraPosition: initialCameraPosition,
+              myLocationButtonEnabled: true,
+              myLocationEnabled: true,
+              compassEnabled: false,
+              zoomControlsEnabled: false,
+              //padding: EdgeInsets.only(bottom: 100),
+            ),
+            const WhereAreYouGoingButton(),
+          ],
         );
       },
       child: Center(

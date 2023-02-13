@@ -16,8 +16,8 @@ class HomeController extends ChangeNotifier {
 
   late BitmapDescriptor _carPin;
 
-  Position? _initialPosition;
-  Position? get initialPosition => _initialPosition;
+  //Position? _initialPosition;
+  //Position? get initialPosition => _initialPosition;
   //Position? get initialPosition => _initialPosition;
 
   StreamSubscription? _gpsSubscription, _positionSuscription;
@@ -58,6 +58,7 @@ class HomeController extends ChangeNotifier {
           _setInitialPotition(position);
           initialized = true;
           notifyListeners();
+          //print('😋');
         }
       },
       onError: (e) {
@@ -66,15 +67,22 @@ class HomeController extends ChangeNotifier {
           _state = state.copyWith(gpsEnable: false);
           notifyListeners();
         }
-        notifyListeners();
+        //notifyListeners();
       },
     );
   }
 
   //Definimos las posicion inicial.
   void _setInitialPotition(Position position) {
-    if (state.gpsEnable && _initialPosition == null) {
-      _initialPosition = position;
+    if (state.gpsEnable && state.initialPosition == null) {
+      _state = state.copyWith(
+        initialPosition: LatLng(
+          position.latitude,
+          position.longitude,
+        ),
+        loading: false,
+      );
+      //_initialPosition = position;
     }
   }
 
