@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps/app/domain/ui/pages/search_place/search_place_page.dart';
 
 class WhereAreYouGoingButton extends StatelessWidget {
   const WhereAreYouGoingButton({
@@ -15,7 +16,12 @@ class WhereAreYouGoingButton extends StatelessWidget {
       right: 20,
       child: SafeArea(
         child: CupertinoButton(
-          onPressed: () {},
+          onPressed: () {
+            final route = MaterialPageRoute(
+              builder: (_) => SearchPlacePage(),
+            );
+            Navigator.push(context, route);
+          },
           padding: EdgeInsets.zero,
           //color: Colors.white,
           child: Container(
