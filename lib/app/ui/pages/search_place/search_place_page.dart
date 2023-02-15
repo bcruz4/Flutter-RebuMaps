@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:flutter/material.dart';
-import 'package:google_maps/app/domain/ui/pages/search_place/search_place_controller.dart';
+
 import 'package:provider/provider.dart';
+import 'package:google_maps/app/ui/pages/search_place/search_place_controller.dart';
 
 class SearchPlacePage extends StatelessWidget {
   const SearchPlacePage({super.key});

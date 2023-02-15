@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps/app/domain/ui/pages/search_place/search_place_page.dart';
+import 'package:google_maps/app/ui/pages/search_place/search_place_page.dart';
 
 class WhereAreYouGoingButton extends StatelessWidget {
   const WhereAreYouGoingButton({
