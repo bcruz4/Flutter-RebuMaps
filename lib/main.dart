@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:google_maps/app/domain/ui/routes/pages.dart';
-import 'package:google_maps/app/domain/ui/routes/routes.dart';
+import 'package:google_maps/app/ui/routes/pages.dart';
+import 'package:google_maps/app/ui/routes/routes.dart';
 
 void main() {
   runApp(const MyApp());

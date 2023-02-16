@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart' show ChangeNotifier;
-import 'package:google_maps/app/domain/ui/routes/routes.dart';
+import 'package:google_maps/app/ui/routes/routes.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SplashController extends ChangeNotifier {

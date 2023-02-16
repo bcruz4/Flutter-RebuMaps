@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Place {
-  //inicializar todas las variables que se quieran guarda del Json en el Postman
   final String id, title, address;
   final LatLng position;
   final int distance;

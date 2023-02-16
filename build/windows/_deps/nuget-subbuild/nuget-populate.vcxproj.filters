@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\_deps\nuget-subbuild\CMakeFiles\bc84aacc0a8409aa4dae574800e1d0f5\nuget-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\_deps\nuget-subbuild\CMakeFiles\bc84aacc0a8409aa4dae574800e1d0f5\nuget-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\_deps\nuget-subbuild\CMakeFiles\bc84aacc0a8409aa4dae574800e1d0f5\nuget-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\_deps\nuget-subbuild\CMakeFiles\bc84aacc0a8409aa4dae574800e1d0f5\nuget-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\_deps\nuget-subbuild\CMakeFiles\bc84aacc0a8409aa4dae574800e1d0f5\nuget-populate-copyfile.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\_deps\nuget-subbuild\CMakeFiles\bc84aacc0a8409aa4dae574800e1d0f5\nuget-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\_deps\nuget-subbuild\CMakeFiles\bc84aacc0a8409aa4dae574800e1d0f5\nuget-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\_deps\nuget-subbuild\CMakeFiles\bc84aacc0a8409aa4dae574800e1d0f5\nuget-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\_deps\nuget-subbuild\CMakeFiles\bc84aacc0a8409aa4dae574800e1d0f5\nuget-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\_deps\nuget-subbuild\CMakeFiles\d390f1f7dccd8037aca26bdb1924af7d\nuget-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\_deps\nuget-subbuild\CMakeFiles\947a36d526a783f32321195aeb4a53da\nuget-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\_deps\nuget-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\_deps\nuget-subbuild\CMakeFiles\nuget-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{16F69774-2F76-3A1D-A668-F4D736E39883}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

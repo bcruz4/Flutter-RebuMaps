@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:google_maps/app/domain/ui/pages/splash/splash_controller.dart';
+import 'package:google_maps/app/ui/pages/splash/splash_controller.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SplashPage extends StatefulWidget {

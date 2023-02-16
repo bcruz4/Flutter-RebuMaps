@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_maps/app/domain/ui/pages/request_permission/request_permission_controller.dart';
-import 'package:google_maps/app/domain/ui/routes/routes.dart';
+import 'package:google_maps/app/ui/pages/request_permission/request_permission_controller.dart';
+import 'package:google_maps/app/ui/routes/routes.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class RequestPermissionPage extends StatefulWidget {

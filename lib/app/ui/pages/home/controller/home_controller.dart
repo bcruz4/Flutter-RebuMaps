@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' show ChangeNotifier;
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps/app/domain/ui/pages/home/controller/home_state.dart';
-import 'package:google_maps/app/domain/ui/utils/map_style.dart';
+import 'package:google_maps/app/helpers/current_position.dart';
+import 'package:google_maps/app/ui/pages/home/controller/home_state.dart';
+import 'package:google_maps/app/ui/utils/map_style.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -60,6 +61,9 @@ class HomeController extends ChangeNotifier {
           notifyListeners();
           //print('😋');
         }
+        CurrentPosition.i.setValue(
+          LatLng(position.latitude, position.longitude),
+        );
       },
       onError: (e) {
         print("❌ onError ${e.runtimeType}");
@@ -72,7 +76,7 @@ class HomeController extends ChangeNotifier {
     );
   }
 
-  //Definimos las posicion inicial.
+  //Definimos las posicion inicial del dispositivo.
   void _setInitialPotition(Position position) {
     if (state.gpsEnable && state.initialPosition == null) {
       _state = state.copyWith(

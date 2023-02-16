@@ -39,7 +39,7 @@ dependencies:
   permission_handler: ^10.2.0
   # geolocator: ^9.0.2 no compatible con desiredAccuracy: LocationAccuracy.high, distanceFilter: 10,
   geolocator: ^7.1.1
-  dio: ^5.0.0  
+  dio: ^4.0.0  
 
 dev_dependencies:
   flutter_test:
