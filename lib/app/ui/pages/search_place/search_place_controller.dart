@@ -6,7 +6,13 @@ import 'package:google_maps/app/helpers/current_position.dart';
 class SearchPlaceController extends ChangeNotifier {
   final SearchReposotory _searchReposotory;
   String _query = '';
-  SearchPlaceController(this._searchReposotory);
+  late StreamSubscription _subscription;
+  SearchPlaceController(this._searchReposotory) {
+    _subscription = _searchReposotory.onResults.listen((results) {
+      print('📊 results ${results?.length}, $query');
+    });
+  }
+
   String get query => _query;
 
   Timer? _debouncer;
@@ -16,17 +22,18 @@ class SearchPlaceController extends ChangeNotifier {
     _debouncer?.cancel();
     _debouncer = Timer(
       const Duration(milliseconds: 500),
-      () async {
+      () {
         if (_query.length >= 3) {
           print("📊 Call to API: $query");
           final currentPosition = CurrentPosition.i.value;
           if (currentPosition != null) {
-            final results =
-                await _searchReposotory.search(_query, currentPosition);
-            print("📊 results ${results?.length}");
+            _searchReposotory.cancel();
+            _searchReposotory.search(_query, currentPosition);
+            //print("📊 results ${results?.length}");
           }
         } else {
           print("📊cancel API call");
+          _searchReposotory.cancel();
           //clearQuery();
         }
       },
@@ -36,6 +43,8 @@ class SearchPlaceController extends ChangeNotifier {
   @override
   void dispose() {
     _debouncer?.cancel();
+    _subscription.cancel();
+    _searchReposotory.dispose();
     super.dispose();
   }
 }
