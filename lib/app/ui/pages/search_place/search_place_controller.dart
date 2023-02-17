@@ -1,19 +1,25 @@
 import 'dart:async';
 import 'package:flutter/material.dart' show ChangeNotifier;
+import 'package:google_maps/app/domain/models/place.dart';
 import 'package:google_maps/app/domain/models/repositories/search_repository.dart';
 import 'package:google_maps/app/helpers/current_position.dart';
 
 class SearchPlaceController extends ChangeNotifier {
   final SearchReposotory _searchReposotory;
   String _query = '';
+  String get query => _query;
   late StreamSubscription _subscription;
+  List<Place>? _places = [];
+  List<Place>? get places => _places;
+
+  //muestra el numero de resultados en consola
   SearchPlaceController(this._searchReposotory) {
     _subscription = _searchReposotory.onResults.listen((results) {
       print('📊 results ${results?.length}, $query');
+      _places = results;
+      notifyListeners();
     });
   }
-
-  String get query => _query;
 
   Timer? _debouncer;
 
@@ -34,6 +40,8 @@ class SearchPlaceController extends ChangeNotifier {
         } else {
           print("📊cancel API call");
           _searchReposotory.cancel();
+          _places = [];
+          notifyListeners();
           //clearQuery();
         }
       },
