@@ -1,0 +1,28 @@
+^E:\CURSOS\FLUTTER\FLUTTER MAPS\REBU_MAPS\BUILD\WINDOWS\CMAKEFILES\303FD38207032B02447439A4C62B25D5\FLUTTER_WINDOWS.DLL.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E env FLUTTER_ROOT=C:\src\flutter "PROJECT_DIR=E:\Cursos\Flutter\Flutter Maps\rebu_maps" FLUTTER_ROOT=C:\src\flutter "FLUTTER_EPHEMERAL_DIR=E:\Cursos\Flutter\Flutter Maps\rebu_maps\windows\flutter\ephemeral" "PROJECT_DIR=E:\Cursos\Flutter\Flutter Maps\rebu_maps" "FLUTTER_TARGET=E:\Cursos\Flutter\Flutter Maps\rebu_maps\lib\main.dart" DART_DEFINES=RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ== DART_OBFUSCATION=false TRACK_WIDGET_CREATION=true TREE_SHAKE_ICONS=false "PACKAGE_CONFIG=E:\Cursos\Flutter\Flutter Maps\rebu_maps\.dart_tool\package_config.json" C:/src/flutter/packages/flutter_tools/bin/tool_backend.bat windows-x64 Debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^E:\CURSOS\FLUTTER\FLUTTER MAPS\REBU_MAPS\BUILD\WINDOWS\CMAKEFILES\3B17BB990415DC09E1AD61D9AD9F25B1\FLUTTER_ASSEMBLE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^E:\CURSOS\FLUTTER\FLUTTER MAPS\REBU_MAPS\WINDOWS\FLUTTER\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-SE:/Cursos/Flutter/Flutter Maps/rebu_maps/windows" "-BE:/Cursos/Flutter/Flutter Maps/rebu_maps/build/windows" --check-stamp-file "E:/Cursos/Flutter/Flutter Maps/rebu_maps/build/windows/flutter/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

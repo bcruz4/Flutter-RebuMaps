@@ -1,0 +1,10 @@
+^E:\CURSOS\FLUTTER\FLUTTER MAPS\REBU_MAPS\WINDOWS\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-SE:/Cursos/Flutter/Flutter Maps/rebu_maps/windows" "-BE:/Cursos/Flutter/Flutter Maps/rebu_maps/build/windows" --check-stamp-file "E:/Cursos/Flutter/Flutter Maps/rebu_maps/build/windows/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -26,58 +26,74 @@ class SearchPlacePage extends StatelessWidget {
           ),
           elevation: 0,
         ),
-        body: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: Column(
-            children: [
-              Builder(
-                builder: (context) => Column(
-                  children: [
-                    SearchInput(
-                      placeholder: 'origin',
-                      onChanged:
-                          context.read<SearchPlaceController>().onQueryChanged,
-                    ),
-                    SearchInput(
-                      placeholder: 'destination',
-                      onChanged:
-                          context.read<SearchPlaceController>().onQueryChanged,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: Consumer<SearchPlaceController>(
-                  builder: (_, controller, __) {
-                    final places = controller.places;
-                    if (places == null) {
-                      return const Center(
-                        child: Text('Error'),
-                      );
-                    } else if (places.isEmpty && controller.query.length >= 3) {
-                      return const Center(
-                        child: Text('Empty'),
-                      );
-                    }
-                    return ListView.builder(
-                      itemBuilder: (_, index) {
-                        final place = places[index];
-                        return ListTile(
-                          leading: Text(distanceFormat(place.distance)),
-                          title: Text(place.title),
-                          subtitle: Text(place.address),
-                        );
-                      },
-                      itemCount: places.length,
+        body: GestureDetector(
+          //FocusScop: hace que al precionar fura del formulario se minimice el teclado
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: Column(
+              children: [
+                Builder(
+                  builder: (context) {
+                    final controller = Provider.of<SearchPlaceController>(
+                        context,
+                        listen: false);
+                    return Column(
+                      children: [
+                        SearchInput(
+                          controller: controller.originController,
+                          focusNode: controller.originFocusNode,
+                          placeholder: 'origin',
+                          onChanged: controller.onQueryChanged,
+                        ),
+                        SearchInput(
+                          controller: controller.destinationController,
+                          focusNode: controller.destinationFocusNode,
+                          placeholder: 'destination',
+                          onChanged: controller.onQueryChanged,
+                        ),
+                      ],
                     );
                   },
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                  child: Consumer<SearchPlaceController>(
+                    builder: (_, controller, __) {
+                      final places = controller.places;
+                      if (places == null) {
+                        return const Center(
+                          child: Text('Error'),
+                        );
+                      } else if (places.isEmpty &&
+                          controller.query.length >= 3) {
+                        return const Center(
+                          child: Text('Empty'),
+                        );
+                      }
+                      return ListView.builder(
+                        itemBuilder: (_, index) {
+                          final place = places[index];
+                          return ListTile(
+                            leading: Text(distanceFormat(place.distance)),
+                            title: Text(place.title),
+                            subtitle: Text(place.address),
+                            onTap: () {
+                              controller.pickPlace(place);
+                              FocusScope.of(context).unfocus();
+                            },
+                          );
+                        },
+                        itemCount: places.length,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

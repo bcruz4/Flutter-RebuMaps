@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\CMakeFiles\303fd38207032b02447439a4c62b25d5\flutter_windows.dll.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\CMakeFiles\3b17bb990415dc09e1ad61d9ad9f25b1\flutter_assemble.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\windows\flutter\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\Cursos\Flutter\Flutter Maps\rebu_maps\build\windows\flutter\CMakeFiles\flutter_assemble" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{1E07BCBD-3A2B-3D43-8FE5-EB89B5585C43}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
