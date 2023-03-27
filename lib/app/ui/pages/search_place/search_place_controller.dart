@@ -28,7 +28,7 @@ class SearchPlaceController extends ChangeNotifier {
   final originController = TextEditingController();
   final destinationController = TextEditingController();
 
-  bool _originHasFocus = true;
+  bool? _originHasFocus;
 
   //muestra el numero de resultados en consola
   SearchPlaceController(this._searchReposotory) {
@@ -41,28 +41,19 @@ class SearchPlaceController extends ChangeNotifier {
     );
     //para saber que campo tiene el punto de atencion
     originFocusNode.addListener(() {
-      if (originFocusNode.hasFocus && !_originHasFocus) {
-        _onOriginFocusNodeChange(true);
+      if (originFocusNode.hasFocus) {
+        _originHasFocus = true;
       }
     });
 
     destinationFocusNode.addListener(() {
-      if (destinationFocusNode.hasFocus && !_originHasFocus) {
-        _onOriginFocusNodeChange(false);
+      if (destinationFocusNode.hasFocus) {
+        _originHasFocus = false;
       }
     });
   }
 
   Timer? _debouncer;
-
-  void _onOriginFocusNodeChange(bool hasFocus) {
-    _originHasFocus = hasFocus;
-    _places = [];
-    //se coloca un string vacio para que la busqueda no muestre el mensaje de 'empty'
-    //ya que se llamo al query la primera vez
-    _query = '';
-    notifyListeners();
-  }
 
   void onQueryChanged(String text) {
     _query = text;
@@ -90,7 +81,7 @@ class SearchPlaceController extends ChangeNotifier {
   }
 
   void pickPlace(Place place) {
-    if (_originHasFocus) {
+    if (_originHasFocus!) {
       _origin = place;
       originController.text = place.title;
     } else {
