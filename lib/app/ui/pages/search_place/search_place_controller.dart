@@ -28,32 +28,39 @@ class SearchPlaceController extends ChangeNotifier {
   final originController = TextEditingController();
   final destinationController = TextEditingController();
 
-  bool? _originHasFocus;
+  bool _originHasFocus = true;
 
   //muestra el numero de resultados en consola
   SearchPlaceController(this._searchReposotory) {
     _subscription = _searchReposotory.onResults.listen(
       (results) {
-        print('📊 results ${results?.length}, $query');
+        //print('📊 results ${results?.length}, $query');
         _places = results;
         notifyListeners();
       },
     );
     //para saber que campo tiene el punto de atencion
     originFocusNode.addListener(() {
-      if (originFocusNode.hasFocus) {
-        _originHasFocus = true;
+      if (originFocusNode.hasFocus && !_originHasFocus) {
+        _onOriginFocusNodeChanged(true);
       }
     });
 
     destinationFocusNode.addListener(() {
-      if (destinationFocusNode.hasFocus) {
-        _originHasFocus = false;
+      if (destinationFocusNode.hasFocus && _originHasFocus) {
+        _onOriginFocusNodeChanged(false);
       }
     });
   }
 
   Timer? _debouncer;
+
+  void _onOriginFocusNodeChanged(bool hasFocus) {
+    _originHasFocus = hasFocus;
+    _places = [];
+    _query = '';
+    notifyListeners();
+  }
 
   void onQueryChanged(String text) {
     _query = text;
@@ -81,7 +88,7 @@ class SearchPlaceController extends ChangeNotifier {
   }
 
   void pickPlace(Place place) {
-    if (_originHasFocus!) {
+    if (_originHasFocus) {
       _origin = place;
       originController.text = place.title;
     } else {

@@ -25,7 +25,7 @@ class _SearchInputState extends State<SearchInput> {
   @override
   void initState() {
     super.initState();
-    //valueNotifier renderiza el espacio par alimpiar lo escrityo en el TextFile
+    //valueNotifier renderiza el espacio par alimpiar lo escrito en el TextFile
     _text = ValueNotifier(widget.controller.text);
   }
 
@@ -55,7 +55,7 @@ class _SearchInputState extends State<SearchInput> {
               padding: const EdgeInsets.only(right: 5),
               child: CupertinoButton(
                   padding: const EdgeInsets.all(10),
-                  color: Colors.black38,
+                  color: Colors.black,
                   child: const Icon(Icons.close_rounded),
                   onPressed: () {
                     //limpiar el campo

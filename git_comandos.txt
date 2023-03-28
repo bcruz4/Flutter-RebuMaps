@@ -1,0 +1,3 @@
+git add .    
+git commit -m 'Definiendo origen y destino pt.3, boton de limpiar busqueda previa en origen y destino.'  
+git push --set-upstream origin maste
