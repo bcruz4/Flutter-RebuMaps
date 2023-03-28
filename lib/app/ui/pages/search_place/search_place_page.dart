@@ -2,10 +2,17 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps/app/data/providers/remote/search_api.dart';
 import 'package:google_maps/app/data/providers/repositories_impl/search_repository_impl.dart';
-import 'package:google_maps/app/ui/pages/search_place/widgets/search_input.dart';
-import 'package:google_maps/app/ui/utils/distance_format.dart';
+import 'package:google_maps/app/domain/models/place.dart';
+import 'package:google_maps/app/ui/pages/home/widgets/search_app_bar.dart';
+import 'package:google_maps/app/ui/pages/home/widgets/search_inputs.dart';
+import 'package:google_maps/app/ui/pages/home/widgets/search_results.dart';
 import 'package:provider/provider.dart';
 import 'package:google_maps/app/ui/pages/search_place/search_place_controller.dart';
+
+class SearchResponse {
+  final Place origin, destinmation;
+  SearchResponse(this.origin, this.destinmation);
+}
 
 class SearchPlacePage extends StatelessWidget {
   const SearchPlacePage({super.key});
@@ -19,13 +26,7 @@ class SearchPlacePage extends StatelessWidget {
         ),
       ),
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          iconTheme: const IconThemeData(
-            color: Colors.black87,
-          ),
-          elevation: 0,
-        ),
+        appBar: const SearchAppBar(),
         body: GestureDetector(
           //FocusScop: hace que al precionar fura del formulario se minimice el teclado
           onTap: () => FocusScope.of(context).unfocus(),
@@ -33,64 +34,13 @@ class SearchPlacePage extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
             child: Column(
-              children: [
-                Builder(
-                  builder: (context) {
-                    final controller = Provider.of<SearchPlaceController>(
-                        context,
-                        listen: false);
-                    return Column(
-                      children: [
-                        SearchInput(
-                          controller: controller.originController,
-                          focusNode: controller.originFocusNode,
-                          placeholder: 'origin',
-                          onChanged: controller.onQueryChanged,
-                        ),
-                        SearchInput(
-                          controller: controller.destinationController,
-                          focusNode: controller.destinationFocusNode,
-                          placeholder: 'destination',
-                          onChanged: controller.onQueryChanged,
-                        ),
-                      ],
-                    );
-                  },
-                ),
-                const SizedBox(
+              children: const [
+                SearchInputs(),
+                SizedBox(
                   height: 10,
                 ),
                 Expanded(
-                  child: Consumer<SearchPlaceController>(
-                    builder: (_, controller, __) {
-                      final places = controller.places;
-                      if (places == null) {
-                        return const Center(
-                          child: Text('Error'),
-                        );
-                      } else if (places.isEmpty &&
-                          controller.query.length >= 3) {
-                        return const Center(
-                          child: Text('Empty'),
-                        );
-                      }
-                      return ListView.builder(
-                        itemBuilder: (_, index) {
-                          final place = places[index];
-                          return ListTile(
-                            leading: Text(distanceFormat(place.distance)),
-                            title: Text(place.title),
-                            subtitle: Text(place.address),
-                            onTap: () {
-                              controller.pickPlace(place);
-                              FocusScope.of(context).unfocus();
-                            },
-                          );
-                        },
-                        itemCount: places.length,
-                      );
-                    },
-                  ),
+                  child: SearchResults(),
                 ),
               ],
             ),

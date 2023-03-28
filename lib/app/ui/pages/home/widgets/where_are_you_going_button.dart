@@ -16,11 +16,17 @@ class WhereAreYouGoingButton extends StatelessWidget {
       right: 20,
       child: SafeArea(
         child: CupertinoButton(
-          onPressed: () {
-            final route = MaterialPageRoute(
-              builder: (_) => SearchPlacePage(),
+          onPressed: () async {
+            final route = MaterialPageRoute<SearchResponse>(
+              builder: (_) => const SearchPlacePage(),
             );
-            Navigator.push(context, route);
+            final response = await Navigator.push<SearchResponse>(
+              context,
+              route,
+            );
+            if (response != null) {
+              print('🔖 home origin ${response.origin.title}');
+            }
           },
           padding: EdgeInsets.zero,
           //color: Colors.white,

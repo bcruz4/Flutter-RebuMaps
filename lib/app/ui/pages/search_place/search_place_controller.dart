@@ -95,6 +95,7 @@ class SearchPlaceController extends ChangeNotifier {
       _destination = place;
       destinationController.text = place.title;
     }
+    notifyListeners();
   }
 
   @override
