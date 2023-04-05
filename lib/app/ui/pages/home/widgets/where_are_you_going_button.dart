@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps/app/ui/pages/home/controller/home_controller.dart';
 import 'package:google_maps/app/ui/pages/search_place/search_place_page.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 
 class WhereAreYouGoingButton extends StatelessWidget {
   const WhereAreYouGoingButton({
@@ -25,7 +28,13 @@ class WhereAreYouGoingButton extends StatelessWidget {
               route,
             );
             if (response != null) {
-              print('🔖 home origin ${response.origin.title}');
+              //print('🔖 home origin ${response.origin.title}');
+              // ignore: use_build_context_synchronously
+              final controller = context.read<HomeController>();
+              controller.setOriginDestination(
+                response.origin,
+                response.destinmation,
+              );
             }
           },
           padding: EdgeInsets.zero,

@@ -1,3 +1,10 @@
 git add .    
 git commit -m 'Definiendo origen y destino pt.3, boton de limpiar busqueda previa en origen y destino.'  
 git push --set-upstream origin maste
+
+
+-- para poder ver los comits --
+git log
+
+-- para poder regresar a un comit anterior
+git checkout 7dd0b3xxxxxxxx .   
