@@ -6,5 +6,5 @@ git push --set-upstream origin maste
 -- para poder ver los comits --
 git log
 
--- para poder regresar a un comit anterior
+-- para poder regresar a un comit anterior (el punto es muy importante)
 git checkout 7dd0b3xxxxxxxx .   

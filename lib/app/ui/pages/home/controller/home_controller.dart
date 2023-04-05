@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' show ChangeNotifier;
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps/app/data/providers/local/geolocator_wrapper.dart';
 import 'package:google_maps/app/domain/models/place.dart';
 import 'package:google_maps/app/helpers/current_position.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_state.dart';
@@ -22,25 +23,23 @@ class HomeController extends ChangeNotifier {
   //Position? get initialPosition => _initialPosition;
   //Position? get initialPosition => _initialPosition;
 
-  StreamSubscription? _gpsSubscription, _positionSuscription;
+  StreamSubscription? _gpsSubscription, _positionSubscription;
   GoogleMapController? _mapController;
+  final GeolocatorWrapper _geolocator;
 
-  HomeController() {
+  HomeController(this._geolocator) {
     _init();
   }
 
   // ignore: non_constant_identifier_names
   Future<void> _init() async {
-    final gpsEnabled = await Geolocator.isLocationServiceEnabled();
+    final gpsEnabled = await _geolocator.isLocationServiceEnabled;
     _state = state.copyWith(gpsEnable: gpsEnabled);
-    //getServiceStatusStream().listen , mustra un popUp para activar el gps para mejor experiencia
-    _gpsSubscription = Geolocator.getServiceStatusStream().listen(
-      (status) async {
-        final _gpsEnabled = status == ServiceStatus.enabled;
-        if (gpsEnabled) {
-          _state = state.copyWith(gpsEnable: gpsEnabled);
-          _initlocationUpdates();
-        }
+
+    _gpsSubscription = _geolocator.onServiceEnabled.listen(
+      (enabled) {
+        _state = state.copyWith(gpsEnable: enabled);
+        notifyListeners();
       },
     );
     _initlocationUpdates();
@@ -48,14 +47,8 @@ class HomeController extends ChangeNotifier {
 
   Future<void> _initlocationUpdates() async {
     bool initialized = false;
-    await _positionSuscription?.cancel();
-    _positionSuscription = Geolocator.getPositionStream(
-      desiredAccuracy: LocationAccuracy.high,
-      distanceFilter: 10,
-    ).listen(
-      (position) async {
-        //print('📍 $position');
-
+    _positionSubscription = _geolocator.onLocationUpdates.listen(
+      (position) {
         if (!initialized) {
           _setInitialPotition(position);
           initialized = true;
@@ -65,14 +58,6 @@ class HomeController extends ChangeNotifier {
         CurrentPosition.i.setValue(
           LatLng(position.latitude, position.longitude),
         );
-      },
-      onError: (e) {
-        print("❌ onError ${e.runtimeType}");
-        if (e is LocationServiceDisabledException) {
-          _state = state.copyWith(gpsEnable: false);
-          notifyListeners();
-        }
-        //notifyListeners();
       },
     );
   }
@@ -134,11 +119,11 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> turnOnGPS() => Geolocator.openLocationSettings();
+  Future<void> turnOnGPS() => _geolocator.openAppSettings();
 
   @override
   void dispose() {
-    _positionSuscription
+    _positionSubscription
         ?.cancel(); // cuando se destruya la pagina se deja de escucahr los cambis en el dispositivo
     _gpsSubscription?.cancel();
     // ignore: todo

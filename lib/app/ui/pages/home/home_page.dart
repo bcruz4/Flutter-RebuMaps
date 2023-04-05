@@ -4,6 +4,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:google_maps/app/data/providers/local/geolocator_wrapper.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_controller.dart';
 import 'package:google_maps/app/ui/pages/home/widgets/mapView.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -16,10 +17,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeController>(
-      create: (_) {
-        final controller = HomeController();
-        return controller;
-      },
+      create: (_) => HomeController(
+        GeolocatorWrapper(),
+      ),
       child: Scaffold(
         extendBodyBehindAppBar: false,
         body: Selector<HomeController, bool>(
