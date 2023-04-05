@@ -121,6 +121,34 @@ class HomeController extends ChangeNotifier {
 
   Future<void> turnOnGPS() => _geolocator.openAppSettings();
 
+  Future<void> zoomIn() => _zoom(true);
+
+  //SACAR EL PUNTO MEDIO DE LA PANTALLA
+  Future<void> zoomOut() => _zoom(false);
+
+  Future<void> _zoom(bool zoomIn) async {
+    if (_mapController != null) {
+      double zoom = await _mapController!.getZoomLevel();
+      if (!zoomIn) {
+        if (zoom - 1 <= 0) {
+          return;
+        }
+      }
+
+      zoom = zoomIn ? zoom + 1 : zoom - 1;
+
+      final bounds = await _mapController!.getVisibleRegion();
+      final northeast = bounds.northeast;
+      final southwest = bounds.southwest;
+      final center = LatLng(
+        (northeast.latitude + southwest.latitude) / 2,
+        (northeast.longitude + southwest.longitude) / 2,
+      );
+      final cameraUpdate = CameraUpdate.newLatLngZoom(center, zoom);
+      await _mapController!.animateCamera(cameraUpdate);
+    }
+  }
+
   @override
   void dispose() {
     _positionSubscription
