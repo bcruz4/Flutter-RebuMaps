@@ -51,13 +51,15 @@ class WhereAreYouGoingButton extends StatelessWidget {
                   route,
                 );
                 if (response != null) {
-                  //print('🔖 home origin ${response.origin.title}');
-                  // ignore: use_build_context_synchronously
-                  final controller = context.read<HomeController>();
-                  controller.setOriginDestination(
-                    response.origin,
-                    response.destinmation,
-                  );
+                  WidgetsBinding.instance!.addPostFrameCallback((_) {
+                    //print('🔖 home origin ${response.origin.title}');
+                    // ignore: use_build_context_synchronously
+                    final controller = context.read<HomeController>();
+                    controller.setOriginDestination(
+                      response.origin,
+                      response.destinmation,
+                    );
+                  });
                 }
               },
               padding: EdgeInsets.zero,
