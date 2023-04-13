@@ -6,6 +6,7 @@ class SearchInput extends StatefulWidget {
   final FocusNode focusNode;
   final String placeholder;
   final void Function(String)? onChanged;
+  final VoidCallback onClear;
 
   const SearchInput({
     super.key,
@@ -13,6 +14,7 @@ class SearchInput extends StatefulWidget {
     required this.onChanged,
     required this.focusNode,
     required this.controller,
+    required this.onClear,
   });
 
   @override
@@ -27,6 +29,15 @@ class _SearchInputState extends State<SearchInput> {
     super.initState();
     //valueNotifier renderiza el espacio par alimpiar lo escrito en el TextFile
     _text = ValueNotifier(widget.controller.text);
+    //para desaparecer el boton de borrar cammpo sino se completa la busqueda
+    widget.controller.addListener(() {
+      final textFromController = widget.controller.text;
+      if (widget.controller.text.isEmpty && _text.value.isNotEmpty) {
+        _text.value = '';
+      } else if (textFromController.isNotEmpty) {
+        _text.value = textFromController;
+      }
+    });
   }
 
   @override
@@ -61,7 +72,7 @@ class _SearchInputState extends State<SearchInput> {
                     //limpiar el campo
                     widget.controller.text = '';
                     _text.value = '';
-                    widget.onChanged!('');
+                    widget.onClear();
                   }),
             ),
           ),

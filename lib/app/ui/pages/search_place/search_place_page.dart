@@ -27,6 +27,7 @@ class SearchPlacePage extends StatelessWidget {
       ),
       child: Scaffold(
         appBar: const SearchAppBar(),
+        backgroundColor: Colors.white,
         body: GestureDetector(
           //FocusScop: hace que al precionar fura del formulario se minimice el teclado
           onTap: () => FocusScope.of(context).unfocus(),

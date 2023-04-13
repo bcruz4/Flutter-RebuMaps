@@ -43,12 +43,19 @@ class SearchPlaceController extends ChangeNotifier {
     originFocusNode.addListener(() {
       if (originFocusNode.hasFocus && !_originHasFocus) {
         _onOriginFocusNodeChanged(true);
+        //limpiar el campo de texto si no se completa la busqueda de origen o 'origen'
+      } else if (!originFocusNode.hasFocus && _origin == null) {
+        originController.text = '';
       }
     });
 
     destinationFocusNode.addListener(() {
       if (destinationFocusNode.hasFocus && _originHasFocus) {
         _onOriginFocusNodeChanged(false);
+      }
+      //limpiar el campo de texto si no se completa la busqueda de origen o 'destino'
+      else if (!destinationFocusNode.hasFocus && _destination == null) {
+        destinationController.text = '';
       }
     });
   }
@@ -78,13 +85,21 @@ class SearchPlaceController extends ChangeNotifier {
           }
         } else {
           print("📊cancel API call");
-          _searchReposotory.cancel();
-          _places = [];
-          notifyListeners();
-          //clearQuery();
+          clearQuery();
         }
       },
     );
+  }
+
+  void clearQuery() {
+    _searchReposotory.cancel();
+    _places = [];
+    if (_originHasFocus) {
+      _origin = null;
+    } else {
+      _destination = null;
+    }
+    notifyListeners();
   }
 
   void pickPlace(Place place) {
