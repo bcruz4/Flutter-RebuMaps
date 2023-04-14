@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart' show ChangeNotifier;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps/app/data/providers/local/geolocator_wrapper.dart';
 import 'package:google_maps/app/domain/models/place.dart';
+import 'package:google_maps/app/domain/models/repositories/routes_repository.dart';
 import 'package:google_maps/app/helpers/current_position.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_state.dart';
 import 'package:google_maps/app/ui/pages/home/widgets/custom_marker.dart';
@@ -29,8 +30,9 @@ class HomeController extends ChangeNotifier {
   StreamSubscription? _gpsSubscription, _positionSubscription;
   GoogleMapController? _mapController;
   final GeolocatorWrapper _geolocator;
+  final RoutesRepository _routesRepository;
 
-  HomeController(this._geolocator) {
+  HomeController(this._geolocator, this._routesRepository) {
     _init();
   }
 

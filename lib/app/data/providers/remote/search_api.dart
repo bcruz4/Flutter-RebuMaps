@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:google_maps/app/domain/models/place.dart';
+import 'package:google_maps/app/helpers/const.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,7 @@ class SearchAPI {
         //datos recopilados de Postman
         'https://autosuggest.search.hereapi.com/v1/autosuggest',
         queryParameters: {
-          "apiKey": 'mb7ZTT1c2VJkq1ZimRBUhC-IlEPcukrd13WnAvKhG6M',
+          "apiKey": apiKey,
           "q": query,
           "at": "${at.latitude},${at.longitude}",
           "in": "countryCode:BOL",
