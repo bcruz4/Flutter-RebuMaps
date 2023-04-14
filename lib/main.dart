@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:google_maps/app/ui/pages/custom_marker.dart';
+import 'package:google_maps/app/ui/pages/home/widgets/custom_marker.dart';
 import 'package:google_maps/app/ui/routes/pages.dart';
 import 'package:google_maps/app/ui/routes/routes.dart';
 
@@ -30,9 +30,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      //initialRoute: Routes.SPLASH,
-      //routes: appRoutes(),
-      home: CustomMarker(),
+      initialRoute: Routes.SPLASH,
+      routes: appRoutes(),
     );
   }
 }

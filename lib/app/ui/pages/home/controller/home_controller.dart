@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' show ChangeNotifier;
 import 'package:geolocator/geolocator.dart';
@@ -7,8 +7,10 @@ import 'package:google_maps/app/data/providers/local/geolocator_wrapper.dart';
 import 'package:google_maps/app/domain/models/place.dart';
 import 'package:google_maps/app/helpers/current_position.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_state.dart';
+import 'package:google_maps/app/ui/pages/home/widgets/custom_marker.dart';
 import 'package:google_maps/app/ui/utils/fit_map.dart';
 import 'package:google_maps/app/ui/utils/map_style.dart';
+import 'package:google_maps/helpers/image_to_byte.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -90,23 +92,27 @@ class HomeController extends ChangeNotifier {
     const originId = MarkerId('origin');
     const destinationId = MarkerId('destination');
 
+    final originIcon = await _placeToMarker(origin, null);
+    final destinationIcon = await _placeToMarker(destination, 30);
     //inicializando las variales para los marcadores origen
     final originMarker = Marker(
       markerId: originId,
       position: origin.position,
+      icon: originIcon,
       //etiqueta flotante
-      infoWindow: InfoWindow(
-        title: origin.title,
-      ),
+      // infoWindow: InfoWindow(
+      //   title: origin.title,
+      // ),
     );
     //inicializando las variales para los marcadores destino
     final destinationMarker = Marker(
       markerId: destinationId,
       position: destination.position,
+      icon: destinationIcon,
       //etiqueta flotante
-      infoWindow: InfoWindow(
-        title: destination.title,
-      ),
+      // infoWindow: InfoWindow(
+      //   title: destination.title,
+      // ),
     );
 
     copy[originId] = originMarker;
@@ -121,7 +127,8 @@ class HomeController extends ChangeNotifier {
       fitMap(
         origin.position,
         destination.position,
-        padding: 50, // da un borde entre el marcador y el borde de la pantalla
+        // da un borde o espacio entre el marcador y el borde de la pantalla
+        padding: 100,
       ),
     );
     notifyListeners();
@@ -157,10 +164,34 @@ class HomeController extends ChangeNotifier {
     }
   }
 
+  //MARCADOR PERSONALIZADO UTILIZANDO CUSTOM_MARKER.DART
+  Future<BitmapDescriptor> _placeToMarker(Place place, int? duration) async {
+    final recorder = ui.PictureRecorder();
+    final canvas = ui.Canvas(recorder);
+    //cambia el tama;o del marcador personalizado
+    const size = ui.Size(350, 80);
+
+    final customMarker = MyCustomMarker(
+      label: place.title,
+      duration: duration,
+    );
+    customMarker.paint(canvas, size);
+    final picture = recorder.endRecording();
+    final image = await picture.toImage(
+      size.width.toInt(),
+      size.height.toInt(),
+    );
+    final byteData = await image.toByteData(
+      format: ui.ImageByteFormat.png,
+    );
+    final bytes = byteData!.buffer.asUint8List();
+    return BitmapDescriptor.fromBytes(bytes);
+  }
+
   @override
   void dispose() {
-    _positionSubscription
-        ?.cancel(); // cuando se destruya la pagina se deja de escucahr los cambis en el dispositivo
+    // cuando se destruya la pagina se deja de escucahr los cambios en el dispositivo
+    _positionSubscription?.cancel();
     _gpsSubscription?.cancel();
     // ignore: todo
     // TODO: implement dispose

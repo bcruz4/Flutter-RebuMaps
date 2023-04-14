@@ -1,33 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomMarker extends StatelessWidget {
-  const CustomMarker({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey,
-      body: Center(
-        child: SizedBox(
-          width: 300,
-          height: 60,
-          child: CustomPaint(
-            painter: MyCustomPaiter(
-              label: "Universidad Mayor de San Andres",
-              duration: 25,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MyCustomPaiter extends CustomPainter {
+class MyCustomMarker extends CustomPainter {
   final String label;
   final int? duration;
 
-  MyCustomPaiter({
+  MyCustomMarker({
     required this.label,
     required this.duration,
   });
@@ -40,7 +17,7 @@ class MyCustomPaiter extends CustomPainter {
     double? dx,
     double? dy,
     String? fontFamily,
-    double fontSize = 18,
+    double fontSize = 22,
     Color color = Colors.black,
     FontWeight? fontWeight,
   }) {
@@ -66,8 +43,8 @@ class MyCustomPaiter extends CustomPainter {
     textPainter.paint(
       canvas,
       Offset(
-        dx ?? size.height / 2 - textPainter.width / 2,
-        size.height / 2 - textPainter.size.height / 2 + (dy ?? 0),
+        dx ?? size.height * 0.5 - textPainter.width * 0.5,
+        size.height * 0.5 - textPainter.size.height * 0.5 + (dy ?? 0),
       ),
     );
   }
@@ -116,7 +93,7 @@ class MyCustomPaiter extends CustomPainter {
           Icons.gps_fixed_rounded.codePoint,
         ),
         fontFamily: Icons.gps_fixed_rounded.fontFamily,
-        fontSize: 25,
+        fontSize: 40,
         color: Colors.white,
         width: size.height,
       );
@@ -125,7 +102,7 @@ class MyCustomPaiter extends CustomPainter {
         canvas: canvas,
         size: size,
         text: "$duration",
-        fontSize: 28,
+        fontSize: 27,
         dy: -9,
         color: Colors.white,
         width: size.height,
@@ -135,8 +112,8 @@ class MyCustomPaiter extends CustomPainter {
         canvas: canvas,
         size: size,
         text: "MIN",
-        fontSize: 20,
-        dy: 14,
+        fontSize: 22,
+        dy: 12,
         color: Colors.white,
         width: size.height,
         fontWeight: FontWeight.bold,
