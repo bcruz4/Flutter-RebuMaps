@@ -88,52 +88,72 @@ class HomeController extends ChangeNotifier {
   }
 
   void setOriginDestination(Place origin, Place destination) async {
-    final copy = {
-      ..._state.markers
-    }; // final copy = Map<MarkerId, Marker>.from(_state.markers); ES EQUIVALENTE A ESTO!!
-    const originId = MarkerId('origin');
-    const destinationId = MarkerId('destination');
-
-    final originIcon = await _placeToMarker(origin, null);
-    final destinationIcon = await _placeToMarker(destination, 30);
-    //inicializando las variales para los marcadores origen
-    final originMarker = Marker(
-      markerId: originId,
-      position: origin.position,
-      icon: originIcon,
-      //etiqueta flotante
-      // infoWindow: InfoWindow(
-      //   title: origin.title,
-      // ),
-    );
-    //inicializando las variales para los marcadores destino
-    final destinationMarker = Marker(
-      markerId: destinationId,
-      position: destination.position,
-      icon: destinationIcon,
-      //etiqueta flotante
-      // infoWindow: InfoWindow(
-      //   title: destination.title,
-      // ),
+    final routes = await _routesRepository.get(
+      origin: origin.position,
+      destination: destination.position,
     );
 
-    copy[originId] = originMarker;
-    copy[destinationId] = destinationMarker;
+    if (routes != null && routes.isNotEmpty) {
+      final markersCopy = {
+        ..._state.markers
+      }; // final copy = Map<MarkerId, Marker>.from(_state.markers); ES EQUIVALENTE A ESTO!!
+      const originId = MarkerId('origin');
+      const destinationId = MarkerId('destination');
 
-    _state = _state.copyWith(
-      origin: origin,
-      destination: destination,
-      markers: copy,
-    );
-    await _mapController?.animateCamera(
-      fitMap(
-        origin.position,
-        destination.position,
-        // da un borde o espacio entre el marcador y el borde de la pantalla
-        padding: 100,
-      ),
-    );
-    notifyListeners();
+      final route = routes.first;
+
+      final originIcon = await _placeToMarker(origin, null);
+      final destinationIcon = await _placeToMarker(
+        destination,
+        route.duration,
+      );
+      //inicializando las variales para los marcadores origen
+      final originMarker = Marker(
+        markerId: originId,
+        position: origin.position,
+        icon: originIcon,
+        //etiqueta flotante
+        // infoWindow: InfoWindow(
+        //   title: origin.title,
+        // ),
+      );
+      //inicializando las variales para los marcadores destino
+      final destinationMarker = Marker(
+        markerId: destinationId,
+        position: destination.position,
+        icon: destinationIcon,
+        //etiqueta flotante
+        // infoWindow: InfoWindow(
+        //   title: destination.title,
+        // ),
+      );
+
+      markersCopy[originId] = originMarker;
+      markersCopy[destinationId] = destinationMarker;
+      final polylinesCopy = {..._state.polylines};
+      const polylineId = PolylineId('route');
+      final polyline = Polyline(
+        polylineId: polylineId,
+        points: route.points,
+        width: 2,
+      );
+      polylinesCopy[polylineId] = polyline;
+      _state = _state.copyWith(
+        origin: origin,
+        destination: destination,
+        markers: markersCopy,
+        polylines: polylinesCopy,
+      );
+      await _mapController?.animateCamera(
+        fitMap(
+          origin.position,
+          destination.position,
+          // da un borde o espacio entre el marcador y el borde de la pantalla
+          padding: 100,
+        ),
+      );
+      notifyListeners();
+    }
   }
 
   Future<void> turnOnGPS() => _geolocator.openAppSettings();

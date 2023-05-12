@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flexible_polyline/flexible_polyline.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps/app/domain/models/route.dart';
 import 'package:google_maps/app/helpers/const.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
 
 class RoutesAPI {
   final Dio _dio;
@@ -11,8 +10,8 @@ class RoutesAPI {
   RoutesAPI(this._dio);
 
   Future<List<Route>?> get({
-    required Position origin,
-    required Position destination,
+    required LatLng origin,
+    required LatLng destination,
   }) async {
     try {
       final response = await _dio.get(
