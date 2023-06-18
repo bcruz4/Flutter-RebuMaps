@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart' show ChangeNotifier;
+import 'package:flutter/widgets.dart' show ChangeNotifier, Offset;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps/app/data/providers/local/geolocator_wrapper.dart';
 import 'package:google_maps/app/domain/models/place.dart';
@@ -112,6 +112,7 @@ class HomeController extends ChangeNotifier {
         markerId: originId,
         position: origin.position,
         icon: originIcon,
+        anchor: const Offset(0.5, 1.2),
         //etiqueta flotante
         // infoWindow: InfoWindow(
         //   title: origin.title,
@@ -122,6 +123,7 @@ class HomeController extends ChangeNotifier {
         markerId: destinationId,
         position: destination.position,
         icon: destinationIcon,
+        anchor: const Offset(0.5, 1.2),
         //etiqueta flotante
         // infoWindow: InfoWindow(
         //   title: destination.title,
@@ -130,11 +132,13 @@ class HomeController extends ChangeNotifier {
 
       markersCopy[originId] = originMarker;
       markersCopy[destinationId] = destinationMarker;
+
       final polylinesCopy = {..._state.polylines};
       const polylineId = PolylineId('route');
       final polyline = Polyline(
         polylineId: polylineId,
         points: route.points,
+        // grosor de la linea de poligono
         width: 2,
       );
       polylinesCopy[polylineId] = polyline;
@@ -149,7 +153,7 @@ class HomeController extends ChangeNotifier {
           origin.position,
           destination.position,
           // da un borde o espacio entre el marcador y el borde de la pantalla
-          padding: 100,
+          padding: 80,
         ),
       );
       notifyListeners();

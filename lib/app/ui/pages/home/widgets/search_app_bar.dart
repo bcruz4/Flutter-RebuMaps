@@ -4,10 +4,10 @@ import 'package:google_maps/app/ui/pages/search_place/search_place_controller.da
 import 'package:google_maps/app/ui/pages/search_place/search_place_page.dart';
 import 'package:provider/provider.dart';
 
-class SearchAppBar extends StatelessWidget with PreferredSizeWidget {
+class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   const SearchAppBar({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class SearchAppBar extends StatelessWidget with PreferredSizeWidget {
           final controller = context.watch<SearchPlaceController>();
           final origin = controller.origin;
           final destination = controller.destination;
-          //solo visualizar el texto 'OK' al asignar origen y destino
+          // Solo visualizar el texto 'OK' al asignar origen y destino
           final bool enabled = origin != null && destination != null;
           return CupertinoButton(
             onPressed: enabled
@@ -41,5 +41,5 @@ class SearchAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(55);
+  Size get preferredSize => const Size.fromHeight(55.0);
 }
