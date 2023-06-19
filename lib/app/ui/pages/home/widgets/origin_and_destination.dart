@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_controller.dart';
+import 'package:google_maps/app/ui/pages/home/widgets/timeline_tile.dart';
 import 'package:provider/provider.dart';
 
 class OriginAndDestination extends StatelessWidget {
@@ -19,12 +20,21 @@ class OriginAndDestination extends StatelessWidget {
       return Container();
     }
 
+    final controller = Provider.of<HomeController>(
+      context,
+      listen: false,
+    );
+    final state = controller.state;
+    final origin = state.origin!;
+    final destination = state.destination!;
+
     return Positioned(
       top: 10,
       left: 15,
       right: 15,
       child: SafeArea(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CupertinoButton(
@@ -37,12 +47,12 @@ class OriginAndDestination extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
               width: double.infinity,
-              height: 100,
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(
@@ -52,6 +62,39 @@ class OriginAndDestination extends StatelessWidget {
                   BoxShadow(
                     blurRadius: 10,
                     color: Colors.black26,
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        TimeLineTile(
+                          label: 'Pick up',
+                          isTop: true,
+                          desciption: origin.title,
+                          onPressed: () {},
+                        ),
+                        TimeLineTile(
+                          label: 'Drop off',
+                          isTop: false,
+                          desciption: destination.title,
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  CupertinoButton(
+                    color: Colors.black.withOpacity(0.2),
+                    padding: const EdgeInsets.all(10),
+                    borderRadius: BorderRadius.circular(30),
+                    child: const Icon(
+                      Icons.sync,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () {},
                   ),
                 ],
               ),
