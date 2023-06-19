@@ -8,6 +8,7 @@ import 'package:google_maps/app/domain/models/place.dart';
 import 'package:google_maps/app/domain/models/repositories/routes_repository.dart';
 import 'package:google_maps/app/helpers/current_position.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_state.dart';
+import 'package:google_maps/app/ui/pages/home/widgets/circle_marker.dart';
 import 'package:google_maps/app/ui/pages/home/widgets/custom_marker.dart';
 import 'package:google_maps/app/ui/utils/fit_map.dart';
 import 'package:google_maps/app/ui/utils/map_style.dart';
@@ -32,6 +33,8 @@ class HomeController extends ChangeNotifier {
   final GeolocatorWrapper _geolocator;
   final RoutesRepository _routesRepository;
 
+  BitmapDescriptor? _dotMarker;
+
   HomeController(this._geolocator, this._routesRepository) {
     _init();
   }
@@ -47,7 +50,9 @@ class HomeController extends ChangeNotifier {
         notifyListeners();
       },
     );
+
     _initlocationUpdates();
+    _dotMarker = await getDotMarker();
   }
 
   Future<void> _initlocationUpdates() async {
@@ -99,6 +104,8 @@ class HomeController extends ChangeNotifier {
       }; // final copy = Map<MarkerId, Marker>.from(_state.markers); ES EQUIVALENTE A ESTO!!
       const originId = MarkerId('origin');
       const destinationId = MarkerId('destination');
+      const originDot = MarkerId('originDot');
+      const destinationDot = MarkerId('destinationDot');
 
       final route = routes.first;
 
@@ -132,6 +139,20 @@ class HomeController extends ChangeNotifier {
 
       markersCopy[originId] = originMarker;
       markersCopy[destinationId] = destinationMarker;
+
+      markersCopy[originDot] = Marker(
+        markerId: originDot,
+        position: route.points.first,
+        icon: _dotMarker!,
+        anchor: const Offset(0.5, 0.5),
+      );
+
+      markersCopy[destinationDot] = Marker(
+        markerId: destinationDot,
+        position: route.points.last,
+        icon: _dotMarker!,
+        anchor: const Offset(0.5, 0.5),
+      );
 
       final polylinesCopy = {..._state.polylines};
       const polylineId = PolylineId('route');
