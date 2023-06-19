@@ -1,18 +1,17 @@
 import 'dart:async';
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart' show ChangeNotifier, Offset;
+import 'package:flutter/widgets.dart' show ChangeNotifier;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps/app/data/providers/local/geolocator_wrapper.dart';
 import 'package:google_maps/app/domain/models/place.dart';
 import 'package:google_maps/app/domain/models/repositories/routes_repository.dart';
 import 'package:google_maps/app/helpers/current_position.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_state.dart';
+import 'package:google_maps/app/ui/pages/home/controller/utils/set_route.dart';
+import 'package:google_maps/app/ui/pages/home/controller/utils/set_zoom.dart';
 import 'package:google_maps/app/ui/pages/home/widgets/circle_marker.dart';
-import 'package:google_maps/app/ui/pages/home/widgets/custom_marker.dart';
 import 'package:google_maps/app/ui/utils/fit_map.dart';
 import 'package:google_maps/app/ui/utils/map_style.dart';
-import 'package:google_maps/helpers/image_to_byte.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -99,76 +98,14 @@ class HomeController extends ChangeNotifier {
     );
 
     if (routes != null && routes.isNotEmpty) {
-      final markersCopy = {
-        ..._state.markers
-      }; // final copy = Map<MarkerId, Marker>.from(_state.markers); ES EQUIVALENTE A ESTO!!
-      const originId = MarkerId('origin');
-      const destinationId = MarkerId('destination');
-      const originDot = MarkerId('originDot');
-      const destinationDot = MarkerId('destinationDot');
-
-      final route = routes.first;
-
-      final originIcon = await _placeToMarker(origin, null);
-      final destinationIcon = await _placeToMarker(
-        destination,
-        route.duration,
-      );
-      //inicializando las variales para los marcadores origen
-      final originMarker = Marker(
-        markerId: originId,
-        position: origin.position,
-        icon: originIcon,
-        anchor: const Offset(0.5, 1.2),
-        //etiqueta flotante
-        // infoWindow: InfoWindow(
-        //   title: origin.title,
-        // ),
-      );
-      //inicializando las variales para los marcadores destino
-      final destinationMarker = Marker(
-        markerId: destinationId,
-        position: destination.position,
-        icon: destinationIcon,
-        anchor: const Offset(0.5, 1.2),
-        //etiqueta flotante
-        // infoWindow: InfoWindow(
-        //   title: destination.title,
-        // ),
-      );
-
-      markersCopy[originId] = originMarker;
-      markersCopy[destinationId] = destinationMarker;
-
-      markersCopy[originDot] = Marker(
-        markerId: originDot,
-        position: route.points.first,
-        icon: _dotMarker!,
-        anchor: const Offset(0.5, 0.5),
-      );
-
-      markersCopy[destinationDot] = Marker(
-        markerId: destinationDot,
-        position: route.points.last,
-        icon: _dotMarker!,
-        anchor: const Offset(0.5, 0.5),
-      );
-
-      final polylinesCopy = {..._state.polylines};
-      const polylineId = PolylineId('route');
-      final polyline = Polyline(
-        polylineId: polylineId,
-        points: route.points,
-        // grosor de la linea de poligono
-        width: 2,
-      );
-      polylinesCopy[polylineId] = polyline;
-      _state = _state.copyWith(
+      _state = await setRouteAndMarkers(
+        state: state,
+        routes: routes,
         origin: origin,
         destination: destination,
-        markers: markersCopy,
-        polylines: polylinesCopy,
+        dot: _dotMarker!,
       );
+
       await _mapController?.animateCamera(
         fitMap(
           origin.position,
@@ -183,56 +120,17 @@ class HomeController extends ChangeNotifier {
 
   Future<void> turnOnGPS() => _geolocator.openAppSettings();
 
-  Future<void> zoomIn() => _zoom(true);
-
-  //SACAR EL PUNTO MEDIO DE LA PANTALLA
-  Future<void> zoomOut() => _zoom(false);
-
-  Future<void> _zoom(bool zoomIn) async {
+  Future<void> zoomIn() async {
     if (_mapController != null) {
-      double zoom = await _mapController!.getZoomLevel();
-      if (!zoomIn) {
-        if (zoom - 1 <= 0) {
-          return;
-        }
-      }
-
-      zoom = zoomIn ? zoom + 1 : zoom - 1;
-
-      final bounds = await _mapController!.getVisibleRegion();
-      final northeast = bounds.northeast;
-      final southwest = bounds.southwest;
-      final center = LatLng(
-        (northeast.latitude + southwest.latitude) / 2,
-        (northeast.longitude + southwest.longitude) / 2,
-      );
-      final cameraUpdate = CameraUpdate.newLatLngZoom(center, zoom);
-      await _mapController!.animateCamera(cameraUpdate);
+      await setZoom(_mapController!, true);
     }
   }
 
-  //MARCADOR PERSONALIZADO UTILIZANDO CUSTOM_MARKER.DART
-  Future<BitmapDescriptor> _placeToMarker(Place place, int? duration) async {
-    final recorder = ui.PictureRecorder();
-    final canvas = ui.Canvas(recorder);
-    //cambia el tama;o del marcador personalizado
-    const size = ui.Size(350, 80);
-
-    final customMarker = MyCustomMarker(
-      label: place.title,
-      duration: duration,
-    );
-    customMarker.paint(canvas, size);
-    final picture = recorder.endRecording();
-    final image = await picture.toImage(
-      size.width.toInt(),
-      size.height.toInt(),
-    );
-    final byteData = await image.toByteData(
-      format: ui.ImageByteFormat.png,
-    );
-    final bytes = byteData!.buffer.asUint8List();
-    return BitmapDescriptor.fromBytes(bytes);
+  //SACAR EL PUNTO MEDIO DE LA PANTALLA
+  Future<void> zoomOut() async {
+    if (_mapController != null) {
+      await setZoom(_mapController!, false);
+    }
   }
 
   @override
