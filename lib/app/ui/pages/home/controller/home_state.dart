@@ -48,4 +48,16 @@ class HomeState {
       destination: destination ?? this.destination,
     );
   }
+
+  HomeState clearOriginAndDestination() {
+    return HomeState(
+      loading: loading,
+      gpsEnable: gpsEnable,
+      markers: {},
+      polylines: {},
+      initialPosition: initialPosition,
+      origin: null,
+      destination: null,
+    );
+  }
 }

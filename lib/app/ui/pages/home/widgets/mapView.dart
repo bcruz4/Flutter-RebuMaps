@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps/app/ui/pages/home/widgets/origin_and_destination.dart';
 import 'package:google_maps/app/ui/pages/home/widgets/where_are_you_going_button.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -37,9 +38,11 @@ class MapView extends StatelessWidget {
               myLocationEnabled: true,
               compassEnabled: false,
               zoomControlsEnabled: false,
-              //padding: EdgeInsets.only(bottom: 100),
+              //agrega espacion sobre la visualizaciondew la ruta
+              padding: const EdgeInsets.only(top: 400),
             ),
             const WhereAreYouGoingButton(),
+            const OriginAndDestination(),
           ],
         );
       },

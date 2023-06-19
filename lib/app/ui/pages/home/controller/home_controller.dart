@@ -133,6 +133,11 @@ class HomeController extends ChangeNotifier {
     }
   }
 
+  void clearData() {
+    _state = _state.clearOriginAndDestination();
+    notifyListeners();
+  }
+
   @override
   void dispose() {
     // cuando se destruya la pagina se deja de escucahr los cambios en el dispositivo

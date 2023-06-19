@@ -12,6 +12,18 @@ class WhereAreYouGoingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //define condicion booleana para redibujar el mapa
+    final originAndDestinationReady = context.select<HomeController, bool>(
+      (controller) {
+        final state = controller.state;
+        return state.origin != null && state.destination != null;
+      },
+    );
+    //si se asigna el ortigen y destino se muestra un container
+    if (originAndDestinationReady) {
+      return Container();
+    }
+
     return Positioned(
       //posiciona el texto de un widget
       bottom: 35,
