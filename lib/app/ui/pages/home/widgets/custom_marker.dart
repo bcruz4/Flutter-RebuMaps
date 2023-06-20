@@ -17,7 +17,7 @@ class MyCustomMarker extends CustomPainter {
     double? dx,
     double? dy,
     String? fontFamily,
-    double fontSize = 25,
+    double fontSize = 27,
     Color color = Colors.black,
     FontWeight? fontWeight,
   }) {

@@ -23,7 +23,7 @@ class TimeLineTile extends StatelessWidget {
           height: isTop ? null : 14,
           child: Container(
             width: 1,
-            color: Colors.blueAccent,
+            color: Colors.black,
           ),
         ),
         if (!isTop)
@@ -51,31 +51,38 @@ class TimeLineTile extends StatelessWidget {
             const SizedBox(
               width: 5,
             ),
-            CupertinoButton(
-              padding: const EdgeInsets.all(10),
-              onPressed: onPressed,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    label,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      color: Colors.black54,
-                      fontWeight: FontWeight.w400,
-                    ),
+            Expanded(
+              child: CupertinoButton(
+                padding: const EdgeInsets.all(10),
+                onPressed: onPressed,
+                child: SizedBox(
+                  //para que ocupe todo el ancho posible
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        label,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        desciption,
+                        maxLines: 1,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  Text(
-                    desciption,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+                ),
               ),
             )
           ],

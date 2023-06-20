@@ -38,8 +38,8 @@ class MapView extends StatelessWidget {
               myLocationEnabled: true,
               compassEnabled: false,
               zoomControlsEnabled: false,
-              //agrega espacion sobre la visualizaciondew la ruta
-              padding: const EdgeInsets.only(top: 400),
+              //agrega espacion sobre la visualizacion de la ruta
+              padding: const EdgeInsets.only(top: 500),
             ),
             const WhereAreYouGoingButton(),
             const OriginAndDestination(),
@@ -50,7 +50,7 @@ class MapView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
+            const Text(
               'To use our app we need the access to your location, \n bo you must enable the gps',
               textAlign: TextAlign.center,
             ),

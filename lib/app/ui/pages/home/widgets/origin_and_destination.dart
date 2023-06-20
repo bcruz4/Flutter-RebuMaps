@@ -15,11 +15,33 @@ class OriginAndDestination extends StatelessWidget {
         return state.origin != null && state.destination != null;
       },
     );
-    //si el origen y el destino no estan asignaod retorna un caontainer vacio
-    if (!originAndDestinationReady) {
-      return Container();
-    }
+    return Positioned(
+      left: 15,
+      right: 15,
+      top: 10,
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (child, animation) {
+          final position = Tween<Offset>(
+            begin: const Offset(0, -1),
+            end: const Offset(0, 0),
+          ).animate(animation);
+          return SlideTransition(
+            position: position,
+            child: child,
+          );
+        },
+        child: originAndDestinationReady ? const _View() : Container(),
+      ),
+    );
+  }
+}
 
+class _View extends StatelessWidget {
+  const _View({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     final controller = Provider.of<HomeController>(
       context,
       listen: false,
@@ -28,79 +50,74 @@ class OriginAndDestination extends StatelessWidget {
     final origin = state.origin!;
     final destination = state.destination!;
 
-    return Positioned(
-      top: 10,
-      left: 15,
-      right: 15,
-      child: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CupertinoButton(
-              onPressed: context.read<HomeController>().clearData,
+    return SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CupertinoButton(
+            onPressed: context.read<HomeController>().clearData,
+            color: Colors.white,
+            padding: const EdgeInsets.all(10),
+            borderRadius: BorderRadius.circular(30),
+            child: const Icon(
+              Icons.close_rounded,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
               color: Colors.white,
-              padding: const EdgeInsets.all(10),
-              borderRadius: BorderRadius.circular(30),
-              child: const Icon(
-                Icons.close_rounded,
-                color: Colors.black,
+              borderRadius: BorderRadius.circular(
+                20,
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(
-                  20,
+              boxShadow: const [
+                BoxShadow(
+                  blurRadius: 10,
+                  color: Colors.black26,
                 ),
-                boxShadow: const [
-                  BoxShadow(
-                    blurRadius: 10,
-                    color: Colors.black26,
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      children: [
-                        TimeLineTile(
-                          label: 'Pick up',
-                          isTop: true,
-                          desciption: origin.title,
-                          onPressed: () {},
-                        ),
-                        TimeLineTile(
-                          label: 'Drop off',
-                          isTop: false,
-                          desciption: destination.title,
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  CupertinoButton(
-                    color: Colors.black.withOpacity(0.2),
-                    padding: const EdgeInsets.all(10),
-                    borderRadius: BorderRadius.circular(30),
-                    child: const Icon(
-                      Icons.sync,
-                      color: Colors.blueAccent,
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
+              ],
             ),
-          ],
-        ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      TimeLineTile(
+                        label: 'Pick up',
+                        isTop: true,
+                        desciption: origin.title,
+                        onPressed: () {},
+                      ),
+                      TimeLineTile(
+                        label: 'Drop off',
+                        isTop: false,
+                        desciption: destination.title,
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 10),
+                CupertinoButton(
+                  color: Colors.black.withOpacity(0.1),
+                  padding: const EdgeInsets.all(10),
+                  borderRadius: BorderRadius.circular(30),
+                  onPressed: controller.exchanged,
+                  child: const Icon(
+                    Icons.sync,
+                    color: Colors.blueAccent,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

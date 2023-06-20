@@ -8,7 +8,7 @@ Future<BitmapDescriptor> placeToMarker(Place place, int? duration) async {
   final recorder = ui.PictureRecorder();
   final canvas = ui.Canvas(recorder);
   //cambia el tama;o del marcador personalizado
-  const size = ui.Size(350, 80);
+  const size = ui.Size(380, 100);
 
   final customMarker = MyCustomMarker(
     label: place.title,

@@ -118,6 +118,14 @@ class HomeController extends ChangeNotifier {
     }
   }
 
+// funcion para dar funcionalidad al boton de intercambiar direcciones
+  Future<void> exchanged() async {
+    final origin = _state.destination!;
+    final destination = _state.origin!;
+    clearData();
+    return setOriginDestination(origin, destination);
+  }
+
   Future<void> turnOnGPS() => _geolocator.openAppSettings();
 
   Future<void> zoomIn() async {
