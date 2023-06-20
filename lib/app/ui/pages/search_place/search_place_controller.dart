@@ -31,7 +31,22 @@ class SearchPlaceController extends ChangeNotifier {
   bool _originHasFocus = true;
 
   //muestra el numero de resultados en consola
-  SearchPlaceController(this._searchReposotory) {
+  SearchPlaceController(
+    this._searchReposotory, {
+    required Place? origin,
+    required Place? destination,
+  }) {
+    print("🥶 origin!=null ${origin != null}");
+    _origin = origin;
+    _destination = destination;
+
+    if (_origin != null) {
+      originController.text = _origin!.title;
+    }
+    if (_destination != null) {
+      destinationController.text = _destination!.title;
+    }
+
     _subscription = _searchReposotory.onResults.listen(
       (results) {
         //print('📊 results ${results?.length}, $query');

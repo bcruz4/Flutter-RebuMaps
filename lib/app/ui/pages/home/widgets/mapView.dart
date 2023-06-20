@@ -11,6 +11,9 @@ class MapView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // aca asignamos la variable que nos ayuda a corregir la vista del mapa por debajo de timeline_tile
+    // recuperamos al sdimensiones de nuetra pantalla
+    final size = MediaQuery.of(context).size;
     return Consumer<HomeController>(
       builder: (_, controller, gpsMessageWidgwet) {
         final state = controller.state;
@@ -39,7 +42,7 @@ class MapView extends StatelessWidget {
               compassEnabled: false,
               zoomControlsEnabled: false,
               //agrega espacion sobre la visualizacion de la ruta
-              padding: const EdgeInsets.only(top: 500),
+              padding: EdgeInsets.only(top: size.height * 0.25),
             ),
             const WhereAreYouGoingButton(),
             const OriginAndDestination(),

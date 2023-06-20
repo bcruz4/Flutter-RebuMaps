@@ -15,7 +15,12 @@ class SearchResponse {
 }
 
 class SearchPlacePage extends StatelessWidget {
-  const SearchPlacePage({super.key});
+  final Place? initialOrigin, initialDestination;
+  const SearchPlacePage({
+    super.key,
+    this.initialOrigin,
+    this.initialDestination,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +29,8 @@ class SearchPlacePage extends StatelessWidget {
         SearchRepositoryImpl(
           SearchAPI(Dio()),
         ),
+        origin: initialOrigin,
+        destination: initialDestination,
       ),
       child: Scaffold(
         appBar: const SearchAppBar(),
@@ -31,11 +38,11 @@ class SearchPlacePage extends StatelessWidget {
         body: GestureDetector(
           //FocusScop: hace que al precionar fura del formulario se minimice el teclado
           onTap: () => FocusScope.of(context).unfocus(),
-          child: SizedBox(
+          child: const SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Column(
-              children: const [
+              children: [
                 SearchInputs(),
                 SizedBox(
                   height: 10,

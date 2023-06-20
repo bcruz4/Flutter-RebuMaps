@@ -22,6 +22,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
           final controller = context.watch<SearchPlaceController>();
           final origin = controller.origin;
           final destination = controller.destination;
+
           // Solo visualizar el texto 'OK' al asignar origen y destino
           final bool enabled = origin != null && destination != null;
           return CupertinoButton(

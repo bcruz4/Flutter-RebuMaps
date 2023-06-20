@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_controller.dart';
+import 'package:google_maps/app/ui/pages/home/utils/go_to_search.dart';
 import 'package:google_maps/app/ui/pages/search_place/search_place_page.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/provider.dart';
@@ -54,26 +55,7 @@ class WhereAreYouGoingButton extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             CupertinoButton(
-              onPressed: () async {
-                final route = MaterialPageRoute<SearchResponse>(
-                  builder: (_) => const SearchPlacePage(),
-                );
-                final response = await Navigator.push<SearchResponse>(
-                  context,
-                  route,
-                );
-                if (response != null) {
-                  WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //print('🔖 home origin ${response.origin.title}');
-                    // ignore: use_build_context_synchronously
-                    final controller = context.read<HomeController>();
-                    controller.setOriginDestination(
-                      response.origin,
-                      response.destinmation,
-                    );
-                  });
-                }
-              },
+              onPressed: () => goToSearch(context),
               padding: EdgeInsets.zero,
               //color: Colors.white,
               child: Container(
