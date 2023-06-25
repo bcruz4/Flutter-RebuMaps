@@ -92,6 +92,16 @@ class HomeController extends ChangeNotifier {
   }
 
   void setOriginDestination(Place origin, Place destination) async {
+    //condicion que actualiza el origen y destino despues de ser editado en el MapView
+    if (_state.origin != null && _state.destination != null) {
+      clearData(true);
+    } else {
+      _state = _state.copyWith(
+        fetching: true,
+      );
+      notifyListeners();
+    }
+
     final routes = await _routesRepository.get(
       origin: origin.position,
       destination: destination.position,
@@ -113,6 +123,11 @@ class HomeController extends ChangeNotifier {
           // da un borde o espacio entre el marcador y el borde de la pantalla
           padding: 80,
         ),
+      );
+      notifyListeners();
+    } else {
+      _state = _state.copyWith(
+        fetching: false,
       );
       notifyListeners();
     }
@@ -141,8 +156,8 @@ class HomeController extends ChangeNotifier {
     }
   }
 
-  void clearData() {
-    _state = _state.clearOriginAndDestination();
+  void clearData([bool fetching = false]) {
+    _state = _state.clearOriginAndDestination(fetching);
     notifyListeners();
   }
 

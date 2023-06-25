@@ -4,7 +4,7 @@ import 'package:google_maps/app/ui/pages/home/controller/home_controller.dart';
 import 'package:google_maps/app/ui/pages/search_place/search_place_page.dart';
 import 'package:provider/provider.dart';
 
-void goToSearch(BuildContext context) async {
+void goToSearch(BuildContext context, [bool hasOriginFocus = true]) async {
   final controller = Provider.of<HomeController>(
     context,
     listen: false,
@@ -14,6 +14,7 @@ void goToSearch(BuildContext context) async {
     builder: (_) => SearchPlacePage(
       initialOrigin: state.origin,
       initialDestination: state.destination,
+      hasOriginFocus: hasOriginFocus,
     ),
   );
   final response = await Navigator.push<SearchResponse>(

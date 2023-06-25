@@ -28,14 +28,16 @@ class SearchPlaceController extends ChangeNotifier {
   final originController = TextEditingController();
   final destinationController = TextEditingController();
 
-  bool _originHasFocus = true;
+  late bool _originHasFocus;
 
   //muestra el numero de resultados en consola
   SearchPlaceController(
     this._searchReposotory, {
     required Place? origin,
     required Place? destination,
+    required bool hasOriginFocus,
   }) {
+    _originHasFocus = hasOriginFocus;
     print("🥶 origin!=null ${origin != null}");
     _origin = origin;
     _destination = destination;
@@ -45,6 +47,11 @@ class SearchPlaceController extends ChangeNotifier {
     }
     if (_destination != null) {
       destinationController.text = _destination!.title;
+    }
+    if (_originHasFocus) {
+      originFocusNode.requestFocus();
+    } else {
+      destinationFocusNode.requestFocus();
     }
 
     _subscription = _searchReposotory.onResults.listen(

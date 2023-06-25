@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_controller.dart';
 import 'package:google_maps/app/ui/pages/home/utils/go_to_search.dart';
-import 'package:google_maps/app/ui/pages/search_place/search_place_page.dart';
-import 'package:provider/provider.dart';
 import 'package:provider/provider.dart';
 
 class WhereAreYouGoingButton extends StatelessWidget {
@@ -14,14 +12,16 @@ class WhereAreYouGoingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //define condicion booleana para redibujar el mapa
-    final originAndDestinationReady = context.select<HomeController, bool>(
+    final hide = context.select<HomeController, bool>(
       (controller) {
         final state = controller.state;
-        return state.origin != null && state.destination != null;
+        final originAndDestinationReady =
+            state.origin != null && state.destination != null;
+        return originAndDestinationReady || state.fetching;
       },
     );
     //si se asigna el ortigen y destino se muestra un container
-    if (originAndDestinationReady) {
+    if (hide) {
       return Container();
     }
 

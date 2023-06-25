@@ -16,10 +16,13 @@ class SearchResponse {
 
 class SearchPlacePage extends StatelessWidget {
   final Place? initialOrigin, initialDestination;
+  final bool hasOriginFocus;
+
   const SearchPlacePage({
     super.key,
     this.initialOrigin,
     this.initialDestination,
+    required this.hasOriginFocus,
   });
 
   @override
@@ -31,6 +34,7 @@ class SearchPlacePage extends StatelessWidget {
         ),
         origin: initialOrigin,
         destination: initialDestination,
+        hasOriginFocus: hasOriginFocus,
       ),
       child: Scaffold(
         appBar: const SearchAppBar(),

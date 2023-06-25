@@ -100,7 +100,7 @@ class _View extends StatelessWidget {
                         label: 'Drop off',
                         isTop: false,
                         desciption: destination.title,
-                        onPressed: () => goToSearch(context),
+                        onPressed: () => goToSearch(context, false),
                       ),
                     ],
                   ),
