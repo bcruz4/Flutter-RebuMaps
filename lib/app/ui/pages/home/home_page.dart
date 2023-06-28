@@ -10,8 +10,6 @@ import 'package:google_maps/app/data/providers/remote/routes_api.dart';
 import 'package:google_maps/app/data/providers/repositories_impl/routes_repository_impl.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_controller.dart';
 import 'package:google_maps/app/ui/pages/home/widgets/mapView.dart';
-import 'package:google_maps/app/ui/routes/routes.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {

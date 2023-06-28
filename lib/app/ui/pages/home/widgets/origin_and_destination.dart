@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_controller.dart';
 import 'package:google_maps/app/ui/pages/home/utils/go_to_search.dart';
 import 'package:google_maps/app/ui/pages/home/widgets/timeline_tile.dart';
-import 'package:google_maps/app/ui/pages/search_place/search_place_page.dart';
 import 'package:provider/provider.dart';
 
 class OriginAndDestination extends StatelessWidget {
@@ -40,6 +39,7 @@ class OriginAndDestination extends StatelessWidget {
 }
 
 class _View extends StatelessWidget {
+  // ignore: unused_element
   const _View({super.key});
 
   @override
