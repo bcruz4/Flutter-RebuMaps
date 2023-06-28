@@ -176,7 +176,7 @@ class HomeController extends ChangeNotifier {
     final zoom = await _mapController!.getZoomLevel();
     final cameraUpdate = CameraUpdate.newLatLngZoom(
       CurrentPosition.i.value!,
-      zoom,
+      zoom < 16 ? 16 : zoom,
     );
     return _mapController!.animateCamera(cameraUpdate);
   }
