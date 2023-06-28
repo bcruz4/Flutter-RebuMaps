@@ -1,9 +1,12 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' show ChangeNotifier;
 import 'package:geolocator/geolocator.dart';
+
 import 'package:google_maps/app/data/providers/local/geolocator_wrapper.dart';
 import 'package:google_maps/app/domain/models/place.dart';
+import 'package:google_maps/app/domain/models/repositories/reverse_geocode_repository.dart';
 import 'package:google_maps/app/domain/models/repositories/routes_repository.dart';
 import 'package:google_maps/app/helpers/current_position.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_state.dart';
@@ -30,10 +33,17 @@ class HomeController extends ChangeNotifier {
   GoogleMapController? _mapController;
   final GeolocatorWrapper _geolocator;
   final RoutesRepository _routesRepository;
+  final ReverseGeocodeRepository _reverseGeocodeRepository;
 
   BitmapDescriptor? _dotMarker;
 
-  HomeController(this._geolocator, this._routesRepository) {
+  HomeController({
+    required GeolocatorWrapper geolocator,
+    required RoutesRepository routesRepository,
+    required ReverseGeocodeRepository reverseGeocodeRepository,
+  })  : _routesRepository = routesRepository,
+        _geolocator = geolocator,
+        _reverseGeocodeRepository = reverseGeocodeRepository {
     _init();
   }
 

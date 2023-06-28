@@ -6,7 +6,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps/app/data/providers/local/geolocator_wrapper.dart';
+import 'package:google_maps/app/data/providers/remote/reverse_geocode_api.dart';
 import 'package:google_maps/app/data/providers/remote/routes_api.dart';
+import 'package:google_maps/app/data/providers/repositories_impl/reverse_geocode_repository_impl.dart';
 import 'package:google_maps/app/data/providers/repositories_impl/routes_repository_impl.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_controller.dart';
 import 'package:google_maps/app/ui/pages/home/widgets/mapView.dart';
@@ -19,12 +21,18 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeController>(
-      create: (_) => HomeController(
-        GeolocatorWrapper(),
-        RoutesRepositoryImpl(
-          RoutesAPI(Dio()),
-        ),
-      ),
+      create: (_) {
+        final dio = Dio();
+        return HomeController(
+          geolocator: GeolocatorWrapper(),
+          routesRepository: RoutesRepositoryImpl(
+            RoutesAPI(dio),
+          ),
+          reverseGeocodeRepository: ReverseGeocodeRepositoryImpl(
+            ReverseGeocodeAPI(dio),
+          ),
+        );
+      },
       child: Scaffold(
         extendBodyBehindAppBar: false,
         body: Selector<HomeController, bool>(
