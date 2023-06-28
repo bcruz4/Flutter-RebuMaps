@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
+
+import 'package:google_maps/app/ui/pages/home/controller/home_controller.dart';
+import 'package:google_maps/app/ui/pages/home/controller/home_state.dart';
 
 class FixedMarker extends StatelessWidget {
   final String? text;
-  const FixedMarker({super.key, this.text});
+  const FixedMarker({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final pickFromMap = context.select<HomeController, PickFromMap?>(
+        (controller) => controller.state.pickFromMap);
+    if (pickFromMap == null) {
+      return Container();
+    }
+
     return Stack(
       alignment: Alignment.center,
       children: [

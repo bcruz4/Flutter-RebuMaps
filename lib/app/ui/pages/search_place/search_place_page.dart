@@ -12,7 +12,10 @@ import 'package:google_maps/app/ui/pages/search_place/search_place_controller.da
 
 abstract class SearchResponse {}
 
-class PickFromMapResponse extends SearchResponse {}
+class PickFromMapResponse extends SearchResponse {
+  final bool isOrigin;
+  PickFromMapResponse(this.isOrigin);
+}
 
 class OriginAndDestinationResponse extends SearchResponse {
   final Place origin, destination;

@@ -7,6 +7,7 @@ class HomeState {
   final Map<PolylineId, Polyline> polylines;
   final LatLng? initialPosition;
   final Place? origin, destination;
+  final PickFromMap? pickFromMap;
 
   HomeState({
     required this.loading,
@@ -17,6 +18,7 @@ class HomeState {
     required this.origin,
     required this.destination,
     required this.fetching,
+    required this.pickFromMap,
   });
 
   static HomeState get initialState => HomeState(
@@ -28,6 +30,7 @@ class HomeState {
         origin: null,
         destination: null,
         fetching: false,
+        pickFromMap: null,
       );
 
   //Copia del estado pero con ciertas propiedades modificadas
@@ -40,8 +43,10 @@ class HomeState {
     LatLng? initialPosition,
     Place? origin,
     Place? destination,
+    PickFromMap? pickFromMap,
   }) {
     return HomeState(
+      pickFromMap: pickFromMap ?? this.pickFromMap,
       // ignore: unnecessary_this
       fetching: fetching ?? this.fetching,
       loading: loading ?? this.loading,
@@ -56,6 +61,7 @@ class HomeState {
 
   HomeState clearOriginAndDestination(bool fetching) {
     return HomeState(
+      pickFromMap: null,
       fetching: fetching,
       loading: loading,
       gpsEnable: gpsEnable,
@@ -66,4 +72,29 @@ class HomeState {
       destination: null,
     );
   }
+
+  HomeState cancelPickFromMap() {
+    return HomeState(
+      pickFromMap: null,
+      fetching: fetching,
+      loading: loading,
+      gpsEnable: gpsEnable,
+      markers: markers,
+      polylines: polylines,
+      initialPosition: initialPosition,
+      origin: origin,
+      destination: destination,
+    );
+  }
+}
+
+//creamos la clase PickFromMap, para almacenar el lugar place,para lugo consumir la api de heremaps
+class PickFromMap {
+  final Place? place;
+  final bool isOrigin;
+
+  PickFromMap({
+    required this.place,
+    required this.isOrigin,
+  });
 }

@@ -33,7 +33,7 @@ void goToSearch(BuildContext context, [bool hasOriginFocus = true]) async {
             response.destination,
           );
         } else if (response is PickFromMapResponse) {
-          print('pick from map');
+          controller.pickFromMap(response.isOrigin);
         }
       },
     );

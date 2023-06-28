@@ -16,7 +16,7 @@ class PickFromMapButtom extends StatelessWidget {
       onPressed: () {
         Navigator.pop(
           context,
-          PickFromMapResponse(),
+          PickFromMapResponse(originHasFocus),
         );
       },
     );

@@ -1,5 +1,5 @@
 import 'package:google_maps/app/domain/models/place.dart';
-import 'package:google_maps/app/ui/pages/home/widgets/custom_marker.dart';
+import 'package:google_maps/app/ui/pages/home/widgets/custom_painters/custom_marker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:ui' as ui;
 

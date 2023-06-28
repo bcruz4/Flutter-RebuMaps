@@ -9,7 +9,8 @@ import 'package:google_maps/app/helpers/current_position.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_state.dart';
 import 'package:google_maps/app/ui/pages/home/controller/utils/set_route.dart';
 import 'package:google_maps/app/ui/pages/home/controller/utils/set_zoom.dart';
-import 'package:google_maps/app/ui/pages/home/widgets/circle_marker.dart';
+import 'package:google_maps/app/ui/pages/home/widgets/custom_painters/circle_marker.dart';
+
 import 'package:google_maps/app/ui/utils/fit_map.dart';
 import 'package:google_maps/app/ui/utils/map_style.dart';
 //import 'package:flutter/cupertino.dart';
@@ -158,6 +159,22 @@ class HomeController extends ChangeNotifier {
 
   void clearData([bool fetching = false]) {
     _state = _state.clearOriginAndDestination(fetching);
+    notifyListeners();
+  }
+
+  void pickFromMap(bool isOrigin) {
+    _state = _state.copyWith(
+      pickFromMap: PickFromMap(
+        place: null,
+        isOrigin: isOrigin,
+      ),
+    );
+    notifyListeners();
+  }
+
+  //funcion para desaparecer los botones de 'here are you going butom, gps, zoom +,-'
+  void cancelPickFromMap() {
+    _state = _state.cancelPickFromMap();
     notifyListeners();
   }
 
