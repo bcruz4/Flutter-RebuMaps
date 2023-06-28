@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_controller.dart';
 import 'package:google_maps/app/ui/pages/home/utils/go_to_search.dart';
-import 'package:google_maps/app/ui/pages/home/widgets/timeline_tile.dart';
+import 'package:google_maps/app/ui/pages/home/widgets/buttons/timeline_tile.dart';
 import 'package:provider/provider.dart';
 
 class OriginAndDestination extends StatelessWidget {

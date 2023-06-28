@@ -7,6 +7,7 @@ import 'package:google_maps/app/ui/pages/home/widgets/buttons/where_are_you_goin
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import '../controller/home_controller.dart';
+import 'buttons/confirm_from_map_buttom.dart';
 
 class MapView extends StatelessWidget {
   const MapView({super.key});
@@ -39,7 +40,7 @@ class MapView extends StatelessWidget {
               polylines: state.polylines.values.toSet(),
               onMapCreated: controller.onMapCreated,
               initialCameraPosition: initialCameraPosition,
-              myLocationButtonEnabled: true,
+              myLocationButtonEnabled: false,
               myLocationEnabled: true,
               compassEnabled: false,
               zoomControlsEnabled: false,
@@ -51,7 +52,8 @@ class MapView extends StatelessWidget {
             const FixedMarker(
               text: "Plaza del Estudiante",
             ),
-            CancelPickFromMapButton(),
+            const CancelPickFromMapButton(),
+            const ConfirmFromMapButton(),
           ],
         );
       },

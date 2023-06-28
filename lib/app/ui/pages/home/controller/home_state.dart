@@ -74,27 +74,55 @@ class HomeState {
   }
 
   HomeState cancelPickFromMap() {
+    final prevData = pickFromMap!;
     return HomeState(
       pickFromMap: null,
       fetching: fetching,
       loading: loading,
       gpsEnable: gpsEnable,
-      markers: markers,
-      polylines: polylines,
+      markers: prevData.markers,
+      polylines: prevData.polylines,
       initialPosition: initialPosition,
-      origin: origin,
-      destination: destination,
+      origin: prevData.origin,
+      destination: prevData.destination,
+    );
+  }
+
+  HomeState setPickFromMap(bool isOrigin) {
+    return HomeState(
+      pickFromMap: PickFromMap(
+        place: null,
+        isOrigin: isOrigin,
+        origin: origin,
+        destination: destination,
+        markers: markers,
+        polylines: polylines,
+      ),
+      markers: {},
+      polylines: {},
+      origin: null,
+      destination: null,
+      loading: loading,
+      fetching: fetching,
+      gpsEnable: gpsEnable,
+      initialPosition: initialPosition,
     );
   }
 }
 
 //creamos la clase PickFromMap, para almacenar el lugar place,para lugo consumir la api de heremaps
 class PickFromMap {
-  final Place? place;
+  final Place? place, origin, destination;
   final bool isOrigin;
+  final Map<MarkerId, Marker> markers;
+  final Map<PolylineId, Polyline> polylines;
 
   PickFromMap({
     required this.place,
+    required this.origin,
+    required this.destination,
     required this.isOrigin,
+    required this.markers,
+    required this.polylines,
   });
 }
