@@ -6,12 +6,17 @@ import 'package:google_maps/app/domain/models/place.dart';
 import 'package:google_maps/app/ui/pages/home/widgets/search_app_bar.dart';
 import 'package:google_maps/app/ui/pages/home/widgets/search_inputs.dart';
 import 'package:google_maps/app/ui/pages/home/widgets/search_results.dart';
+import 'package:google_maps/app/ui/pages/search_place/widgets/pick_from_map_buttom.dart';
 import 'package:provider/provider.dart';
 import 'package:google_maps/app/ui/pages/search_place/search_place_controller.dart';
 
-class SearchResponse {
-  final Place origin, destinmation;
-  SearchResponse(this.origin, this.destinmation);
+abstract class SearchResponse {}
+
+class PickFromMapResponse extends SearchResponse {}
+
+class OriginAndDestinationResponse extends SearchResponse {
+  final Place origin, destination;
+  OriginAndDestinationResponse(this.origin, this.destination);
 }
 
 class SearchPlacePage extends StatelessWidget {
@@ -51,6 +56,7 @@ class SearchPlacePage extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
+                PickFromMapButtom(),
                 Expanded(
                   child: SearchResults(),
                 ),

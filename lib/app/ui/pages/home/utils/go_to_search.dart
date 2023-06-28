@@ -27,10 +27,14 @@ void goToSearch(BuildContext context, [bool hasOriginFocus = true]) async {
         //print('🔖 home origin ${response.origin.title}');
         // ignore: use_build_context_synchronously
         final controller = context.read<HomeController>();
-        controller.setOriginDestination(
-          response.origin,
-          response.destinmation,
-        );
+        if (response is OriginAndDestinationResponse) {
+          controller.setOriginDestination(
+            response.origin,
+            response.destination,
+          );
+        } else if (response is PickFromMapResponse) {
+          print('pick from map');
+        }
       },
     );
   }

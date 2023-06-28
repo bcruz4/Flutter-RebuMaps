@@ -47,7 +47,9 @@ class MapView extends StatelessWidget {
             ),
             const WhereAreYouGoingButton(),
             const OriginAndDestination(),
-            FixedMarker(),
+            const FixedMarker(
+              text: "Plaza del Estudiante",
+            ),
           ],
         );
       },

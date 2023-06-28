@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class FixedMarker extends StatelessWidget {
-  const FixedMarker({super.key});
+  final String? text;
+  const FixedMarker({super.key, this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +21,33 @@ class FixedMarker extends StatelessWidget {
                   Container(
                     //padding: const EdgeInsets.all(5),
                     height: 40,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(5),
                     ),
                     //utilizaremos spinkit para personalizar el CircularProgressIndicator
                     //consultar pub.dev para detalles
-                    child: const SpinKitCircle(
-                      color: Colors.white,
-                      size: 24,
-                    ),
+                    child: text != null
+                        ? ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              maxWidth: 250,
+                            ),
+                            child: Text(
+                              text!,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )
+                        : const SpinKitCircle(
+                            color: Colors.white,
+                            size: 24,
+                          ),
                   ),
                 ],
               ),

@@ -29,6 +29,7 @@ class SearchPlaceController extends ChangeNotifier {
   final destinationController = TextEditingController();
 
   late bool _originHasFocus;
+  bool get originHasFocus => _originHasFocus;
 
   //muestra el numero de resultados en consola
   SearchPlaceController(
@@ -38,7 +39,7 @@ class SearchPlaceController extends ChangeNotifier {
     required bool hasOriginFocus,
   }) {
     _originHasFocus = hasOriginFocus;
-    print("🥶 origin!=null ${origin != null}");
+
     _origin = origin;
     _destination = destination;
 
