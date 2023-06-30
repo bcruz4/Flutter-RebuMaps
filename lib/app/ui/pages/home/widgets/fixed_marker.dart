@@ -6,10 +6,8 @@ import 'package:google_maps/app/ui/pages/home/controller/home_controller.dart';
 import 'package:google_maps/app/ui/pages/home/controller/home_state.dart';
 
 class FixedMarker extends StatelessWidget {
-  final String? text;
   const FixedMarker({
     Key? key,
-    required this.text,
   }) : super(key: key);
 
   @override
@@ -19,6 +17,9 @@ class FixedMarker extends StatelessWidget {
     if (pickFromMap == null) {
       return Container();
     }
+
+    final place = pickFromMap.place;
+    final dragging = pickFromMap.dragging;
 
     return Stack(
       alignment: Alignment.center,
@@ -42,13 +43,13 @@ class FixedMarker extends StatelessWidget {
                     ),
                     //utilizaremos spinkit para personalizar el CircularProgressIndicator
                     //consultar pub.dev para detalles
-                    child: text != null
+                    child: place != null && !dragging
                         ? ConstrainedBox(
                             constraints: const BoxConstraints(
                               maxWidth: 250,
                             ),
                             child: Text(
-                              text!,
+                              place.title,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 color: Colors.white,
@@ -57,10 +58,14 @@ class FixedMarker extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           )
-                        : const SpinKitCircle(
-                            color: Colors.white,
-                            size: 24,
-                          ),
+                        : dragging
+                            ? const SpinKitCircle(
+                                color: Colors.white,
+                                size: 24,
+                              )
+                            : const SizedBox(
+                                width: 20,
+                              ),
                   ),
                 ],
               ),

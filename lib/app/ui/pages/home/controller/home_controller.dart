@@ -36,6 +36,7 @@ class HomeController extends ChangeNotifier {
   final ReverseGeocodeRepository _reverseGeocodeRepository;
 
   BitmapDescriptor? _dotMarker;
+  LatLng? _cameraPosition;
 
   HomeController({
     required GeolocatorWrapper geolocator,
@@ -191,11 +192,45 @@ class HomeController extends ChangeNotifier {
     return _mapController!.animateCamera(cameraUpdate);
   }
 
+//metodos para ver el comportamiento del mapa
+  void onCameraMoveStarted() {
+    if (_state.pickFromMap != null) {
+      _state = _state.copyWith(
+        pickFromMap: _state.pickFromMap!.copyWith(
+          dragging: true,
+        ),
+      );
+      notifyListeners();
+    }
+  }
+
+  void onCameraMove(CameraPosition cameraPosition) {
+    _cameraPosition = cameraPosition.target;
+  }
+
+  void onCameraIdle() async {
+    if (_state.pickFromMap != null && _cameraPosition != null) {
+      final place = await _reverseGeocodeRepository.parse(
+        _cameraPosition!,
+      );
+      _state = _state.copyWith(
+        pickFromMap: _state.pickFromMap!.copyWith(
+          dragging: false,
+          place: place,
+        ),
+      );
+      notifyListeners();
+    }
+  }
+
   @override
   void dispose() {
     // cuando se destruya la pagina se deja de escucahr los cambios en el dispositivo
     _positionSubscription?.cancel();
     _gpsSubscription?.cancel();
+    // cuando se destruya la pantalla y tenias una peticion previa se cancele dicha peticion
+    _reverseGeocodeRepository.cancel();
+    _mapController?.dispose();
     // ignore: todo
     // TODO: implement dispose
     super.dispose();

@@ -97,6 +97,7 @@ class HomeState {
         destination: destination,
         markers: markers,
         polylines: polylines,
+        dragging: false,
       ),
       markers: {},
       polylines: {},
@@ -113,7 +114,7 @@ class HomeState {
 //creamos la clase PickFromMap, para almacenar el lugar place,para lugo consumir la api de heremaps
 class PickFromMap {
   final Place? place, origin, destination;
-  final bool isOrigin;
+  final bool isOrigin, dragging;
   final Map<MarkerId, Marker> markers;
   final Map<PolylineId, Polyline> polylines;
 
@@ -124,5 +125,26 @@ class PickFromMap {
     required this.isOrigin,
     required this.markers,
     required this.polylines,
+    required this.dragging,
   });
+
+  PickFromMap copyWith({
+    Place? place,
+    Place? origin,
+    Place? destination,
+    bool? isOrigin,
+    bool? dragging,
+    Map<MarkerId, Marker>? markers,
+    Map<PolylineId, Polyline>? polylines,
+  }) {
+    return PickFromMap(
+      place: place ?? this.place,
+      origin: origin ?? this.origin,
+      destination: destination ?? this.destination,
+      isOrigin: isOrigin ?? this.isOrigin,
+      markers: markers ?? this.markers,
+      polylines: polylines ?? this.polylines,
+      dragging: dragging ?? this.dragging,
+    );
+  }
 }
