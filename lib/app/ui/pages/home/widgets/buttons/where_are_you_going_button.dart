@@ -15,9 +15,8 @@ class WhereAreYouGoingButton extends StatelessWidget {
     final hide = context.select<HomeController, bool>(
       (controller) {
         final state = controller.state;
-        final originAndDestinationReady =
-            state.origin != null && state.destination != null;
-        return originAndDestinationReady ||
+
+        return controller.originAndDestinationReady ||
             state.fetching ||
             state.pickFromMap != null;
       },

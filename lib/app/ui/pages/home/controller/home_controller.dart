@@ -38,6 +38,9 @@ class HomeController extends ChangeNotifier {
   BitmapDescriptor? _dotMarker;
   LatLng? _cameraPosition;
 
+  bool get originAndDestinationReady =>
+      _state.origin != null && _state.destination != null;
+
   HomeController({
     required GeolocatorWrapper geolocator,
     required RoutesRepository routesRepository,
@@ -103,7 +106,7 @@ class HomeController extends ChangeNotifier {
 
   void setOriginDestination(Place origin, Place destination) async {
     //condicion que actualiza el origen y destino despues de ser editado en el MapView
-    if (_state.origin != null && _state.destination != null) {
+    if (originAndDestinationReady) {
       clearData(true);
     } else {
       _state = _state.copyWith(
@@ -219,6 +222,15 @@ class HomeController extends ChangeNotifier {
           place: place,
         ),
       );
+      notifyListeners();
+    }
+  }
+
+  void confirmOriginOrDestination() {
+    _state = _state.confirmOriginOrDestination();
+    if (originAndDestinationReady) {
+      setOriginDestination(_state.origin!, _state.destination!);
+    } else {
       notifyListeners();
     }
   }

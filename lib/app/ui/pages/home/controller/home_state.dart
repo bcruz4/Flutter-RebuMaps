@@ -109,6 +109,21 @@ class HomeState {
       initialPosition: initialPosition,
     );
   }
+
+  HomeState confirmOriginOrDestination() {
+    final data = pickFromMap!;
+    return HomeState(
+      loading: loading,
+      gpsEnable: gpsEnable,
+      markers: markers,
+      polylines: polylines,
+      initialPosition: initialPosition,
+      origin: data.isOrigin ? data.place : data.origin,
+      destination: !data.isOrigin ? data.place : data.destination,
+      fetching: fetching,
+      pickFromMap: null,
+    );
+  }
 }
 
 //creamos la clase PickFromMap, para almacenar el lugar place,para lugo consumir la api de heremaps

@@ -43,7 +43,13 @@ class ConfirmFromMapButton extends StatelessWidget {
             const SizedBox(height: 5),
             const SizedBox(height: 20),
             CupertinoButton(
-              onPressed: () {},
+              onPressed: data.place != null
+                  ? () {
+                      context
+                          .read<HomeController>()
+                          .confirmOriginOrDestination();
+                    }
+                  : null,
               padding: EdgeInsets.zero,
               //color: Colors.white,
               child: Container(
@@ -59,10 +65,10 @@ class ConfirmFromMapButton extends StatelessWidget {
                         offset: Offset(0, 4),
                       ),
                     ]),
-                child: const Text(
-                  'Confirmar',
+                child: Text(
+                  'Confirm ${data.isOrigin ? 'origin' : 'destination'}',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.black54),
+                  style: const TextStyle(color: Colors.black54),
                 ),
               ),
             ),
